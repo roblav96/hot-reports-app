@@ -1,0 +1,208 @@
+/**/
+
+* {
+    /*font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;*/
+    
+    font-family: monospace;
+}
+
+.content-wrapper {
+    position: relative;
+}
+
+.ng-msg {
+    font-size: 8pt;
+}
+
+.side-heading {
+    text-indent: 2em;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color: rgba(0, 0, 0, 0.5)
+}
+
+.th-full {
+    width: 100%;
+}
+
+.lowercase {
+    text-transform: lowercase;
+}
+
+.side-text {
+    margin-left: 10px;
+    font-size: 12pt;
+    text-transform: capitalize;
+}
+
+.side-btn {
+    margin: 0px;
+}
+
+.table-full {
+    width: 100%;
+}
+
+.table-search-padding {
+    padding-bottom: 1px;
+}
+
+.white {
+    background-color: white;
+}
+
+md-content div {
+    /*DEV STUFF*/
+    /*border: 3px solid black; */
+}
+
+.dash-time {
+    width: 80px;
+}
+
+.accts-big {
+    font-size: 24pt !important;
+}
+
+.md-fab-mini {
+    margin-top: 6px;
+    font-size: 20pt;
+}
+
+.dash-type {
+    width: 100px;
+}
+
+.cal-day-tick {
+    height: 20px;
+}
+
+.icon-fab {
+    margin-top: 12px;
+}
+
+.pad0 {
+    padding: 0px;
+}
+
+.marg0 {
+    margin: 0px;
+}
+
+.marg-right1 {
+    margin-right: 10px;
+}
+
+.marg-right2 {
+    margin-right: 20px;
+}
+
+.marg-left1 {
+    margin-left: 10px;
+}
+
+.marg-left2 {
+    margin-left: 20px;
+}
+
+.dash-spans {
+    margin-top: 5px;
+    line-height: 14pt;
+}
+
+.dash-spans span {
+    margin-bottom: 5px;
+}
+
+.dash-spans span.md-title {
+    font-size: 12pt !important;
+    font-weight: bold;
+}
+
+.list-icon {
+    /*margin-top: 4px;*/
+    
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.md-2-line .list-icon {
+    margin-top: 12px;
+    margin-right: 15px;
+}
+
+.md-3-line .list-icon {
+    margin-top: 20px;
+    margin-right: 15px;
+}
+
+md-list {
+    padding-top: 0px;
+}
+
+.logo {
+    font-size: 32pt;
+}
+
+.brand {
+    margin-left: 10px;
+}
+
+.sidenavactive {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: rgb(63, 81, 181);
+}
+
+.td-btn {
+    margin: 0px;
+    min-width: 0px;
+    text-transform: none;
+}
+
+.sidenavactive p {
+    font-weight: bold;
+}
+
+.nav-item .material-icons {
+    margin-right: 20px;
+}
+
+md-tooltip {
+    font-size: 12pt;
+}
+/* for regular size icon buttons */
+
+.menu-icon {
+    margin-top: 8px;
+}
+
+.logout {
+    color: red;
+}
+
+.btn-icon {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 8px;
+}
+
+button .md-36 {
+    /*margin-top: 0px !important;*/
+}
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+
+@media (max-width: 600px) {
+    /**/
+    
+    .btn-icon {
+        margin: 0px !important
+    }
+}
+

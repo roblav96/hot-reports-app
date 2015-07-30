@@ -1,0 +1,12 @@
+<!--  -->
+<md-dialog>
+    <md-dialog-content aria-label="Captcha">
+        <no-captcha g-recaptcha-response="gRecaptchaResponse" site-key="6LcuJQoTAAAAAGCk0WJaK1gRdfW-7_mpTq7Ym8Rg"></no-captcha>
+    </md-dialog-content>
+
+    <div class="md-actions">
+        <md-button ng-click="submitCaptcha()" class="md-raised md-primary" ng-disabled="disableCapSubmit" aria-label="Submit" flex>submit</md-button>
+        <md-button ng-click="dev()" class="md-raised md-primary" aria-label="dev" flex>dev</md-button>
+    </div>
+</md-dialog>
+

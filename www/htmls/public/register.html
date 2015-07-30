@@ -1,0 +1,56 @@
+<!--  -->
+
+<md-content layout="row" class="md-padding">
+    <div flex="0" flex-gt-lg="20">
+    </div>
+    <div flex="100" flex-gt-lg="60">
+        <md-card class="md-padding md-hue-1 md-whiteframe-z2">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+
+<!--                     <div layout="row">
+                        <md-button class="md-raised md-primary" ng-click="devorz()" ng-disabled="disableSubmit" flex>check it</md-button>
+                    </div> -->
+
+                    <form ng-submit="submit()">
+                        <fieldset ng-disabled="disableSubmit">
+                            <md-input-container flex>
+                                <label>Email</label>
+                                <input type="email" focus-me ng-model="d.email" required>
+                            </md-input-container>
+
+                            <md-input-container flex>
+                                <label>Username</label>
+                                <input type="text" input-change ng-change="inpChange(['alphanum', 'spaces', 'lower'])" ng-trim="false" ng-model="d.uname" required>
+                                <div class="ng-msg" ng-messages>Alphanumeric (a-z, 0-9), '-', '_', No spaces, No capitals</div>
+                            </md-input-container>
+
+                            <md-input-container flex>
+                                <label>Password</label>
+                                <input type="password" ng-model="d.pass" required>
+                            </md-input-container>
+
+                            <md-input-container flex>
+                                <label>Retype Password</label>
+                                <input type="password" ng-model="d.pass2" required>
+                            </md-input-container>
+
+                            <md-checkbox class="md-primary" ng-disabled="disableSubmit" ng-model="data.user.remember" aria-label="Keep me logged in on this device">
+                                Keep me logged in on this device
+                            </md-checkbox>
+
+                            <div layout="row">
+                                <md-button type="submit" ng-disabled="disableSubmit" class="md-raised md-primary" flex>register</md-button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </md-card>
+    </div>
+    <div flex="0" flex-gt-lg="20">
+    </div>
+</md-content>
+

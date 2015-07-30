@@ -1,0 +1,40 @@
+<!--  -->
+
+<md-toolbar>
+    <div class="md-toolbar-tools md-whiteframe-z3">
+
+        <md-button ng-click="toggleSidenav('sidenav')" hide-gt-lg class="md-icon-button" aria-label="Menu">
+            <i class="material-icons menu-icon">menu</i>
+        </md-button>
+        <i hide-gt-lg hide-sm class="material-icons">chevron_right</i>
+
+        <i hide-sm class="material-icons logo">whatshot</i>
+
+        <span hide show-gt-lg class="brand">Hot Reports</span>
+        <i hide-sm class="material-icons">chevron_right</i>
+        <span toolbar-state flex></span>
+
+        <md-button ng-click="restDev()">REST DEV</md-button>
+        <md-button ng-click="localDev()">LOCAL DEV</md-button>
+        <md-button ng-click="clearDev()">CLEAR DEV</md-button>
+
+        <!-- <span ng-if="shouldShowHelp"> -->
+            <toolbar-help ng-click="show()">lol</toolbar-help>
+        <!-- </span> -->
+
+    </div>
+</md-toolbar>
+
+<div class="content-wrapper" layout="row" flex>
+    <md-sidenav md-no-ink class="md-sidenav-left md-whiteframe-z3" md-component-id="sidenav" md-closed md-is-locked-open="$mdMedia('gt-lg')">
+
+        <md-content flex>
+            <sidebar-link ng-repeat="link in ::links" ng-init="info=link"></sidebar-link>
+        </md-content>
+
+    </md-sidenav>
+
+    <div ui-view layout="column" flex>
+    </div>
+</div>
+
