@@ -1,3 +1,4 @@
-# hot-reports-app
-These reports are hott AF!
-fwefw
+# hot-reports-server
+These reports are alse hott AF!
+
+server done
