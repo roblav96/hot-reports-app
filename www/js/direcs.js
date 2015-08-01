@@ -152,13 +152,13 @@ angular.module( 'myApp' )
 
 
 			$scope.reqCaptcha = function () {
-				$http.get( g_ip + "public/captcha" ).success( function ( data ) {
-					$scope.d.captcha = data
-					$scope.d.incaptcha = ""
-					$scope.itself.find( 'input' )[ 0 ].focus()
-				} ).error( function ( data ) {
-					log( data )
-				} );
+				// $http.get( g_ip + "public/captcha" ).success( function ( data ) {
+				// 	$scope.d.captcha = data
+				// 	$scope.d.incaptcha = ""
+				// 	$scope.itself.find( 'input' )[ 0 ].focus()
+				// } ).error( function ( data ) {
+				// 	log( data )
+				// } );
 			}
 			$scope.reqCaptcha()
 

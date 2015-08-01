@@ -4,7 +4,7 @@ angular.module( 'myApp', [
 	'ngMaterial',
 	'ui.router',
 	'angular-storage',
-	'noCAPTCHA'
+	'vcRecaptcha'
 	// 'smart-table'
 	// 'ui.calendar'
 ] )
