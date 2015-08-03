@@ -339,12 +339,12 @@ angular.module( 'myApp' )
 
 		$scope.data.user.id = forge.md.sha1.create().update( _.now() ).digest().toHex()
 
-		// $http.get( g_ip + "public/captcha" ).success( function ( data ) {
-		// 	$scope.data.initKey = forge.pki.publicKeyFromPem( forge.util.decode64( data ) )
-		// 	// log( $scope.data.initKey )
-		// } ).error( function ( data ) {
-		// 	log( data )
-		// } );
+		$http.get( g_ip + "public/captcha" ).success( function ( data ) {
+			$scope.data.initKey = forge.pki.publicKeyFromPem( forge.util.decode64( data ) )
+			// log( $scope.data.initKey )
+		} ).error( function ( data ) {
+			log( data )
+		} );
 
 		$captcha.show()
 	}
