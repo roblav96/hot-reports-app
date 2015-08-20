@@ -40,6 +40,79 @@ angular.module( 'myApp' )
 
 
 
+
+
+
+
+
+
+
+.directive( 'unameBtn', function () {
+	return {
+		restrict: 'E',
+
+		link: function ( scope, elem, attrs ) {
+			scope.unameSelf = elem
+			scope.toShow()
+		},
+
+		controller: function ( $scope ) {
+
+			$scope.toShow = function () {
+
+				// console.log( "obj" );
+
+				if ( !$scope.unameSelf ) {
+					return
+				}
+
+				if ( $scope.data.user.uname ) {
+					$scope.unameSelf.removeClass( 'hide' )
+				} else {
+					$scope.unameSelf.addClass( 'hide' )
+				}
+			}
+
+			$scope.logout = function () {
+				$scope.data.user.authed = null
+				$scope.data.user.uname = null
+				$scope.data.user.type = null
+				localStorage.clear()
+				
+				$scope.href( 'public.login' )
+			}
+
+			$scope.hreftoacct = function () {
+				if ( $scope.data.user.type == "newb" ) {
+					$scope.href( "newb.acct" )
+				} else {
+					$scope.href( "user.acct" )
+				}
+			}
+
+			$scope.$on( '$stateChangeSuccess', function ( event, toState, toParams, fromState, fromParams ) {
+				$scope.toShow()
+			} );
+
+		},
+
+		templateUrl: "./templates/toolbar.uname.html"
+	}
+} )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*==========  toolbar help  ==========*/
 
 .directive( 'toolbarHelp', function () {
@@ -125,77 +198,6 @@ angular.module( 'myApp' )
 
 
 
-/*==========  captcha  ==========*/
-
-.directive( 'captcha', function () {
-	return {
-		restrict: 'E',
-
-		link: function ( scope, elem, attrs ) {
-			scope.itself = elem
-				// elem.find( 'input' )[ 0 ].focus()
-		},
-
-		controller: function ( $scope, $http, $mdToast ) {
-
-			// zoom captcha image
-			$scope.zoom = 1
-			$scope.zoomStyle = {
-				'zoom': $scope.zoom
-			}
-			$scope.zoomF = function () {
-				$scope.zoomStyle = {
-					'zoom': $scope.zoom
-				}
-			}
-
-
-
-			$scope.reqCaptcha = function () {
-				// $http.get( g_ip + "public/captcha" ).success( function ( data ) {
-				// 	$scope.d.captcha = data
-				// 	$scope.d.incaptcha = ""
-				// 	$scope.itself.find( 'input' )[ 0 ].focus()
-				// } ).error( function ( data ) {
-				// 	log( data )
-				// } );
-			}
-			$scope.reqCaptcha()
-
-			$scope.$on( '$stateChangeSuccess', function ( event, toState, toParams, fromState, fromParams ) {
-				$scope.reqCaptcha()
-			} );
-
-
-
-			$scope.submitCaptcha = function () {
-				if ( $scope.d.incaptcha ) {
-					$scope.d.incaptcha = $scope.d.incaptcha.replace( /[^a-zA-Z0-9_-]/, '' ).replace( / /g, '' ).toUpperCase()
-				}
-
-
-				$http.post( g_ip + "public/captcha", {
-					data: {
-						incap: $scope.d.incaptcha
-					}
-				} ).success( function ( data ) {
-
-					$mdToast.show( $mdToast.simple().content( "Captcha success!" ) );
-					$scope.itself.remove()
-					$scope.capSuccess()
-
-				} ).error( function ( data ) {
-					// $scope.reqCaptcha()
-				} );
-
-			}
-
-		},
-
-		templateUrl: "./templates/captcha.html"
-	}
-} )
-
 
 
 /*==========  input change  ==========*/
@@ -246,6 +248,26 @@ angular.module( 'myApp' )
 .directive( 'focusMe', function () {
 	return {
 		restrict: 'A',
+		link: function ( scope, elem, attrs ) {
+			scope.focusMe = elem
+				// elem.find( 'input' )[ 0 ].focus()
+		}
+	}
+} )
+
+
+
+
+
+
+
+
+
+/*==========  user register  ==========*/
+
+.directive( 'userRegister', function () {
+	return {
+		restrict: 'E',
 		link: function ( scope, elem, attrs ) {
 			scope.focusMe = elem
 				// elem.find( 'input' )[ 0 ].focus()

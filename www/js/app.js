@@ -4,14 +4,16 @@ angular.module( 'myApp', [
 	'ngMaterial',
 	'ui.router',
 	'angular-storage',
-	'vcRecaptcha'
-	// 'smart-table'
+	'smart-table'
 	// 'ui.calendar'
+	// 'vcRecaptcha'
 ] )
 
 .factory( '$store', function ( store ) {
 	return store.getNamespacedStore( 'auth0' );
 } )
+
+
 
 .run( function ( $rootScope, $store ) {
 	$rootScope.data = {}
@@ -19,38 +21,19 @@ angular.module( 'myApp', [
 	$rootScope.data.state = ""
 	$rootScope.data.user = {}
 
-	$rootScope.data.user.id = $store.get( 'data.user.id' ) || null
-	$rootScope.data.user.remember = false
-	$rootScope.data.user.authed = false
+	$rootScope.data.user.xid = $store.get( 'data.user.xid' ) || forge.md.sha1.create().update( _.now() ).digest().toHex()
+	$rootScope.data.user.authed = $store.get( 'data.user.authed' ) || null
+	$rootScope.data.user.uname = $store.get( 'data.user.uname' ) || null
+	$rootScope.data.user.type = $store.get( 'data.user.type' ) || null
+
+	$rootScope.data.user.vend = $store.get( 'data.user.vend' ) || false
+	$rootScope.data.user.prop = $store.get( 'data.user.prop' ) || false
 
 
 
 } )
 
 .config( function ( $stateProvider, $urlRouterProvider, $httpProvider, $mdIconProvider, $mdThemingProvider ) {
-
-	// $mdIconProvider
-	// 	.icon( "elevator1", "./css/svgs/elevator1.svg", 24 )
-	// 	.icon( "elevator2", "./css/svgs/elevator2.svg", 24 )
-
-	// $mdThemingProvider.theme( 'tool', 'default' )
-	// 	.primaryPalette( 'grey', {
-	// 		'default': '50', // by default use shade 400 from the pink palette for primary intentions
-	// 	} )
-
-	// $mdThemingProvider.theme( 'docs-dark', 'default' )
-	// 	.primaryPalette( 'grey', {
-	// 		'default': '900', // by default use shade 400 from the pink palette for primary intentions
-	// 	} )
-	// 	.accentPalette('orange')
-
-	// 	// .dark();
-
-	// $mdThemingProvider.theme( 'docs-dark', 'default' )
-	// 	.primaryPalette( 'yellow' )
-	// 	.dark();
-
-
 
 	$stateProvider.state( 'public', {
 		url: '/public',
@@ -103,6 +86,97 @@ angular.module( 'myApp', [
 
 
 
+
+
+
+
+
+	.state( 'newb', {
+		url: '/newb',
+		abstract: true,
+		controller: 'NewbCtrl',
+		templateUrl: 'htmls/index.html',
+		data: {
+			links: [ {
+				name: "Request Invitation",
+				state: "newb.invite",
+				icon: "person_add"
+			}, {
+				name: "Enroll Your Company",
+				state: "newb.enroll",
+				icon: "add_circle_outline"
+			} ]
+		}
+	} )
+
+	.state( 'newb.acct', {
+		url: '/acct',
+		templateUrl: 'htmls/acct.html',
+		data: {
+			stateToolName: "My Account"
+		}
+	} )
+
+	.state( 'newb.invite', {
+		url: '/invite',
+		templateUrl: 'htmls/newb/invite.html',
+		data: {
+			stateToolName: "Request Invitation"
+		}
+	} )
+
+	.state( 'newb.enroll', {
+		url: '/enroll',
+		templateUrl: 'htmls/newb/enroll.html',
+		data: {
+			stateToolName: "Enroll New Company"
+		}
+	} )
+
+	.state( 'newb.inv_propmgr', {
+		url: '/inv_propmgr',
+		templateUrl: 'htmls/newb/inv_propmgr.html',
+		data: {
+			stateToolName: "Request Property Invite"
+		}
+	} )
+
+	.state( 'newb.inv_vendor', {
+		url: '/inv_vendor',
+		templateUrl: 'htmls/newb/inv_vendor.html',
+		data: {
+			stateToolName: "Request Vendor Invite"
+		}
+	} )
+
+	.state( 'newb.enr_propmgt', {
+		url: '/enr_propmgt',
+		templateUrl: 'htmls/newb/enr_propmgt.html',
+		data: {
+			stateToolName: "Enroll New Property Management Company"
+		}
+	} )
+
+	.state( 'newb.enr_vendor', {
+		url: '/enr_vendor',
+		templateUrl: 'htmls/newb/enr_vendor.html',
+		data: {
+			stateToolName: "Enroll New Service Company"
+		}
+	} )
+
+
+
+
+
+
+
+
+
+
+
+
+
 	.state( 'user', {
 		url: '/user',
 		abstract: true,
@@ -113,23 +187,98 @@ angular.module( 'myApp', [
 				name: "Dashboard",
 				state: "user.dash",
 				icon: "dashboard"
+			}, {
+				name: "Schedule",
+				state: "user.schedule",
+				icon: "today"
+			}, {
+				name: "Properties",
+				state: "user.properties",
+				icon: "location_city"
+			}, {
+				name: "Users",
+				state: "user.users",
+				icon: "people"
 			} ]
+		}
+	} )
+
+	.state( 'user.acct', {
+		url: '/acct',
+		templateUrl: 'htmls/acct.html',
+		data: {
+			stateToolName: "My Account"
 		}
 	} )
 
 	.state( 'user.dash', {
 		url: '/dash',
-		controller: 'DashCtrl',
 		templateUrl: 'htmls/user/dash.html',
 		data: {
 			stateToolName: "Dashboard"
 		}
 	} )
 
+	.state( 'user.schedule', {
+		url: '/schedule',
+		templateUrl: 'htmls/user/schedule.html',
+		data: {
+			stateToolName: "Schedule"
+		}
+	} )
+
+	.state( 'user.properties', {
+		url: '/properties',
+		templateUrl: 'htmls/user/properties.html',
+		data: {
+			stateToolName: "Properties"
+		}
+	} )
+
+	.state( 'user.users', {
+		url: '/users',
+		templateUrl: 'htmls/user/users.html',
+		data: {
+			stateToolName: "Users"
+		}
+	} )
+
+
+
+	.state( 'user.new_property', {
+		url: '/new_property',
+		templateUrl: 'htmls/user/new_property.html',
+		data: {
+			stateToolName: "Enroll New Property"
+		}
+	} )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	$urlRouterProvider.otherwise( '/public/login' )
 
 	$httpProvider.interceptors.push( 'HeadersInterceptor' );
-
 
 } )
 

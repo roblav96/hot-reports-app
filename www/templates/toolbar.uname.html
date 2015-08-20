@@ -1,0 +1,46 @@
+<!--  -->
+
+<md-menu md-position-mode="target-right target">
+
+    <md-button class="lowercase" ng-click="$mdOpenMenu($event)">
+        <div layout="row" layout-align="center center">
+            <i ng-show="data.user.vend" class="material-icons btn-icon">build</i>
+            <i ng-show="data.user.prop" class="material-icons btn-icon">location_city</i>
+            <span>{{data.user.uname}}</span>
+        </div>
+    </md-button>
+
+    <md-menu-content width="4">
+        <md-menu-item>
+            <h4 class="text-right"><strong>{{data.user.uname}}</strong></h4>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button ng-click="hreftoacct()">
+                <div layout="row">
+                    <i class="material-icons btn-icon">account_box</i>
+                    <span>My Account</span>
+                </div>
+            </md-button>
+        </md-menu-item>
+
+<!--         <md-menu-item>
+            <md-button ng-click="href('user.settings')">
+                <div layout="row">
+                    <i class="material-icons btn-icon">settings</i>
+                    <span>Account Settings</span>
+                </div>
+            </md-button>
+        </md-menu-item> -->
+        
+        <md-menu-item>
+            <!-- <md-button ng-click="href('public.login')"> -->
+            <md-button ng-click="logout()">
+                <div layout="row">
+                    <i class="material-icons btn-icon">exit_to_app</i>
+                    <span>Logout</span>
+                </div>
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>
+

@@ -24,5 +24,10 @@
   "cordovaPlatforms": [
     "ios",
     "android"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/roblav96/hot-reports-app.git"
+  }
 }
+

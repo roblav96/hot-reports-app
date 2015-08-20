@@ -10,16 +10,45 @@
                 <div class="panel-body">
 
 
-<!--                     <div layout="row">
-                        <md-button class="md-raised md-primary" ng-click="devorz()" ng-disabled="disableSubmit" flex>check it</md-button>
-                    </div> -->
-
                     <form ng-submit="submit()">
                         <fieldset ng-disabled="disableSubmit">
-                            <md-input-container flex>
-                                <label>Email</label>
-                                <input type="email" focus-me ng-model="d.email" required>
-                            </md-input-container>
+
+                            <div layout layout-sm="column">
+                                <md-input-container flex>
+                                    <label>First name</label>
+                                    <input type="text" ng-model="d.fname" required>
+                                </md-input-container>
+                                <md-input-container flex>
+                                    <label>Last Name</label>
+                                    <input type="text" ng-model="d.lname" required>
+                                </md-input-container>
+                            </div>
+
+                            <div layout layout-sm="column">
+                                <md-input-container flex>
+                                    <label>Email</label>
+                                    <input type="email" ng-model="d.email" required>
+                                </md-input-container>
+                                <md-input-container flex>
+                                    <label>Birthday</label>
+                                    <input type="date" ng-model="d.bday">
+                                </md-input-container>
+                            </div>
+
+                            <div layout layout-sm="column">
+                                <md-input-container flex>
+                                    <label>Work Phone</label>
+                                    <input type="tel" ng-model="d.wphone" required>
+                                </md-input-container>
+                                <md-input-container flex>
+                                    <label>Personal Phone</label>
+                                    <input type="tel" ng-model="d.pphone">
+                                </md-input-container>
+                            </div>
+
+
+
+
 
                             <md-input-container flex>
                                 <label>Username</label>
@@ -27,15 +56,19 @@
                                 <div class="ng-msg" ng-messages>Alphanumeric (a-z, 0-9), '-', '_', No spaces, No capitals</div>
                             </md-input-container>
 
-                            <md-input-container flex>
-                                <label>Password</label>
-                                <input type="password" ng-model="d.pass" required>
-                            </md-input-container>
+                            <div layout layout-sm="column">
+                                <md-input-container flex>
+                                    <label>Password</label>
+                                    <input type="password" ng-model="d.pass" required>
+                                </md-input-container>
 
-                            <md-input-container flex>
-                                <label>Retype Password</label>
-                                <input type="password" ng-model="d.pass2" required>
-                            </md-input-container>
+                                <md-input-container flex>
+                                    <label>Retype Password</label>
+                                    <input type="password" ng-model="d.pass2" required>
+                                </md-input-container>
+                            </div>
+
+
 
                             <md-checkbox class="md-primary" ng-disabled="disableSubmit" ng-model="data.user.remember" aria-label="Keep me logged in on this device">
                                 Keep me logged in on this device
