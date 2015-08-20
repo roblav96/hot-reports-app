@@ -52,6 +52,7 @@ angular.module( 'myApp' )
 			likelihood: 50
 		} );
 	}
+	$scope._chance()
 
 
 
@@ -69,10 +70,10 @@ angular.module( 'myApp' )
 	$scope.links = $state.current.data.links // DO NOT REMOVE
 
 	// $scope.d = {}
-	$scope.d.fname = "Robert"
-	$scope.d.lname = "Laverty"
-	$scope.d.wphone = "6177894488"
-	$scope.d.email = "roblav96@gmx.com"
+	// $scope.d.fname = "Robert"
+	// $scope.d.lname = "Laverty"
+	// $scope.d.wphone = "6177894488"
+	// $scope.d.email = "roblav96@gmx.com"
 	$scope.d.uname = "roblav96"
 	$scope.d.pass = "qwer1234"
 	$scope.d.pass2 = "qwer1234"
@@ -88,6 +89,10 @@ angular.module( 'myApp' )
 .controller( 'RegisterCtrl', function ( $scope, $log, $mdToast, $mdDialog, $state, $http, $store, $timeout ) {
 
 	$scope.submit = function () {
+
+		$scope.d = _.pick( $scope.d, 'fname', 'lname', 'wphone', 'email', 'uname', 'pass', 'pass2', 'bday', 'pphone' )
+
+
 		if ( $scope.d.pass != $scope.d.pass2 ) {
 			$mdToast.show( $mdToast.simple().content( 'Passwords do not match!' ) );
 			return
@@ -171,25 +176,6 @@ angular.module( 'myApp' )
 
 
 
-.controller( 'NewbCtrl', function ( $scope, $state ) {
-	// this dynamically loads the sidebar links from state defined links
-	$scope.links = $state.current.data.links // DO NOT REMOVE
-
-	if ( !$scope.data.user.authed ) {
-		$scope.href( "public.login" )
-	}
-
-} )
-
-
-
-
-
-
-
-
-
-
 .controller( 'NewbCtrl', function ( $scope, $state, $http, $mdToast, $store ) {
 	// this dynamically loads the sidebar links from state defined links
 	$scope.links = $state.current.data.links // DO NOT REMOVE
@@ -200,22 +186,25 @@ angular.module( 'myApp' )
 
 	// $scope.d = {}
 	$scope.d.name = "The Hamilton Company"
-	$scope.d.address = "39 Brighton Ave"
-	$scope.d.city = "Allston"
-	$scope.d.state = "MA"
-	$scope.d.zip = "02134"
-	$scope.d.phone = "6171234567"
-	$scope.d.fax = "6171238765"
-	$scope.d.email = "hamilton@hamiltonco.com"
+		// $scope.d.address = "39 Brighton Ave"
+		// $scope.d.city = "Allston"
+		// $scope.d.state = "MA"
+		// $scope.d.zip = "02134"
+		// $scope.d.phone = "6171234567"
+		// $scope.d.fax = "6171238765"
+		// $scope.d.email = "hamilton@hamiltonco.com"
 
-	$scope.d.firealarm = false
-	$scope.d.sprinkler = false
-	$scope.d.firepump = false
-	$scope.d.emergexits = false
-	$scope.d.hoodsys = false
-	$scope.d.fireexting = false
+	// $scope.d.firealarm = false
+	// $scope.d.sprinkler = false
+	// $scope.d.firepump = false
+	// $scope.d.emergexits = false
+	// $scope.d.hoodsys = false
+	// $scope.d.fireexting = false
 
 	$scope.submit = function ( typ ) {
+
+		$scope.d = _.pick( $scope.d, 'name', 'address', 'city', 'state', 'zip', 'phone', 'fax', 'email', 'firealarm', 'hoodsys', 'emergexits', 'firepump', 'sprinkler' )
+
 
 		$http.post( g_ip + "newb/enroll", {
 			data: $scope.d,
@@ -263,20 +252,20 @@ angular.module( 'myApp' )
 	$scope.d.name = "Westboro Village"
 	$scope.d.title = "Business Manager"
 
-	$scope.d.address = "453 East Drive"
-	$scope.d.city = "Westboro"
-	$scope.d.state = "MA"
-	$scope.d.zip = "02532"
-	$scope.d.phone = "5346656456"
-	$scope.d.fax = "0923478205"
-	$scope.d.email = "user@westboro.com"
+	// $scope.d.address = "453 East Drive"
+	// $scope.d.city = "Westboro"
+	// $scope.d.state = "MA"
+	// $scope.d.zip = "02532"
+	// $scope.d.phone = "5346656456"
+	// $scope.d.fax = "0923478205"
+	// $scope.d.email = "user@westboro.com"
 
-	$scope.d.firealarm = false
-	$scope.d.sprinkler = false
-	$scope.d.firepump = false
-	$scope.d.emergexits = false
-	$scope.d.hoodsys = false
-	$scope.d.fireexting = false
+	// $scope.d.firealarm = false
+	// $scope.d.sprinkler = false
+	// $scope.d.firepump = false
+	// $scope.d.emergexits = false
+	// $scope.d.hoodsys = false
+	// $scope.d.fireexting = false
 
 
 
@@ -301,7 +290,15 @@ angular.module( 'myApp' )
 
 
 
+.controller( 'propertiesCtrl', function ( $scope, $http ) {
 
+	$http.get( g_ip + "user/properties" ).then( function ( data ) {
+		console.log( data );
+	}, function ( err ) {
+		console.log( err );
+	} )
+
+} )
 
 
 

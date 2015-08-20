@@ -232,7 +232,8 @@ angular.module( 'myApp', [
 		templateUrl: 'htmls/user/properties.html',
 		data: {
 			stateToolName: "Properties"
-		}
+		},
+		controller: 'propertiesCtrl' 
 	} )
 
 	.state( 'user.users', {
