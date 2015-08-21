@@ -185,7 +185,7 @@ angular.module( 'myApp' )
 	}
 
 	// $scope.d = {}
-	$scope.d.name = "The Hamilton Company"
+	$scope.d.name = ""
 		// $scope.d.address = "39 Brighton Ave"
 		// $scope.d.city = "Allston"
 		// $scope.d.state = "MA"
@@ -249,8 +249,8 @@ angular.module( 'myApp' )
 	}
 
 	// $scope.d = {}
-	$scope.d.name = "Westboro Village"
-	$scope.d.title = "Business Manager"
+	$scope.d.name = ""
+	$scope.d.title = ""
 
 	// $scope.d.address = "453 East Drive"
 	// $scope.d.city = "Westboro"
