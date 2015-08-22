@@ -217,6 +217,9 @@ angular.module( 'myApp' )
 				$scope.data.user.type = typ
 				$store.set( 'data.user.type', typ )
 
+				$scope.data.user[ typ ] = true
+				$store.set( 'data.user.' + typ, true )
+
 				$scope.href( "user.dash" )
 			}
 
@@ -240,7 +243,7 @@ angular.module( 'myApp' )
 
 
 
-.controller( 'UserCtrl', function ( $scope, $state, $http ) {
+.controller( 'UserCtrl', function ( $scope, $state, $http, $mdToast ) {
 	// this dynamically loads the sidebar links from state defined links
 	$scope.links = $state.current.data.links // DO NOT REMOVE
 
@@ -249,8 +252,8 @@ angular.module( 'myApp' )
 	}
 
 	// $scope.d = {}
-	$scope.d.name = ""
-	$scope.d.title = ""
+	$scope.d.name = chance.word() + " " + chance.word() + " " + chance.word()
+	$scope.d.title = chance.word() + " " + chance.word()
 
 	// $scope.d.address = "453 East Drive"
 	// $scope.d.city = "Westboro"
@@ -289,11 +292,67 @@ angular.module( 'myApp' )
 } )
 
 
+.controller( 'propertiesCtrl', function ( $scope, $http, pouchDB ) {
 
-.controller( 'propertiesCtrl', function ( $scope, $http ) {
+	$scope.myProps = []
 
 	$http.get( g_ip + "user/properties" ).then( function ( data ) {
-		console.log( data )
+
+		var data = data.data.rows
+
+		for ( var i = 0; i < data.length; i++ ) {
+
+			if ( data[ i ].doc.users[ $scope.data.user.uname ] ) {
+				$scope.myProps.push( data[ i ].doc )
+				console.log( data[ i ].doc.property );
+				console.log( data[ i ].doc.users );
+			};
+
+
+
+		};
+
+		console.log( $scope.myProps )
+		// console.log( $scope.rowCollection )
+
+		// {
+		// 	"id": "disone",
+		// 	"key": "disone",
+		// 	"value": {
+		// 		"rev": "3-cc093c5754a606868ca239ac4af12cc5"
+		// 	},
+		// 	"doc": {
+		// 		"_id": "disone",
+		// 		"_rev": "3-cc093c5754a606868ca239ac4af12cc5",
+		// 		"address": "1363 Ihuco Drive",
+		// 		"city": "Cikiwug",
+		// 		"state": "WY",
+		// 		"zip": "03144",
+		// 		"phone": "(259) 383-1827",
+		// 		"fax": "(929) 781-9502",
+		// 		"email": "ijuso@jik.com",
+		// 		"firealarm": true,
+		// 		"sprinkler": true,
+		// 		"firepump": true,
+		// 		"emergexits": false,
+		// 		"hoodsys": false,
+		// 		"fireexting": true,
+		// 		"indexProperty": "livcohosoti",
+		// 		"property": "liv coh osoti",
+		// 		"admin": "roblav961",
+		// 		"company": "synergy",
+		// 		"users": {
+		// 			"roblav961": {
+		// 				"title": "maintenace"
+		// 			},
+		// 			"roblav96": {
+		// 				"title": "manager"
+		// 			}
+		// 		}
+		// 	}
+		// }
+
+
 	}, function ( err ) {
 		console.log( err )
 	} )

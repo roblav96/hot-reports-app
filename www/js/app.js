@@ -3,6 +3,7 @@
 angular.module( 'myApp', [
 	'ngMaterial',
 	'ui.router',
+	'pouchdb',
 	'angular-storage',
 	'smart-table'
 	// 'ui.calendar'

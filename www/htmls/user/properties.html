@@ -1,6 +1,6 @@
 <!--  -->
 
-<md-content layout="row">
+<md-content layout="column">
 
     <md-toolbar class="md-hue-2">
         <div class="md-toolbar-tools">
@@ -16,6 +16,26 @@
         </div>
     </md-toolbar>
 
-
+    <table st-table="myProps" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Company</th>
+                <th>Property</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in myProps">
+                <td>{{row.company}}</td>
+                <td>{{row.property}}</td>
+                <td>{{row.address}}</td>
+                <td>{{row.city}}</td>
+                <td>{{row.state}}</td>
+            </tr>
+        </tbody>
+    </table>
 
 </md-content>
+
