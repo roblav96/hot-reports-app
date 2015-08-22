@@ -26,7 +26,7 @@ angular.module( 'myApp' )
 				} else {
 					$element.children().removeClass( 'sidenavactive' )
 				}
-			} );
+			} )
 
 			$scope.click = function () {
 				$scope.href( $scope.info.state )
@@ -60,7 +60,7 @@ angular.module( 'myApp' )
 
 			$scope.toShow = function () {
 
-				// console.log( "obj" );
+				// console.log( "obj" )
 
 				if ( !$scope.unameSelf ) {
 					return
@@ -92,7 +92,7 @@ angular.module( 'myApp' )
 
 			$scope.$on( '$stateChangeSuccess', function ( event, toState, toParams, fromState, fromParams ) {
 				$scope.toShow()
-			} );
+			} )
 
 		},
 
@@ -144,7 +144,7 @@ angular.module( 'myApp' )
 			$scope.$on( '$stateChangeSuccess', function ( event, toState, toParams, fromState, fromParams ) {
 				$scope.toShow()
 
-			} );
+			} )
 
 
 			$scope.show = function () {
@@ -153,10 +153,10 @@ angular.module( 'myApp' )
 				// 	templateUrl: "./templates/help/" + $state.current.name + ".html",
 				// 	controller: function ( $scope, $mdDialog ) {
 				// 		$scope.closeHelp = function () {
-				// 			$mdDialog.hide();
+				// 			$mdDialog.hide()
 				// 		}
 				// 	}
-				// } );
+				// } )
 
 				$help.show( $state.current.name )
 
@@ -190,7 +190,7 @@ angular.module( 'myApp' )
 
 			$scope.$on( '$stateChangeSuccess', function ( event, toState, toParams, fromState, fromParams ) {
 				$scope.changeStateName()
-			} );
+			} )
 		}
 
 	}
@@ -234,7 +234,7 @@ angular.module( 'myApp' )
 
 				for ( var i = 0; i < arr.length; i++ ) {
 					funcs[ arr[ i ] ]()
-				};
+				}
 			}
 		}
 

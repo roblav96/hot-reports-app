@@ -47,10 +47,10 @@ angular.module( 'myApp' )
 			templateUrl: "./templates/help/" + _content + ".html",
 			controller: function ( $scope, $mdDialog ) {
 				$scope.closeHelp = function () {
-					$mdDialog.hide();
+					$mdDialog.hide()
 				}
 			}
-		} );
+		} )
 	}
 
 	return dis

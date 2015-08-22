@@ -7,14 +7,14 @@ angular.module( 'myApp' )
 .controller( 'IndexCtrl', function ( $scope, $log, $q, $state, $mdToast, $mdDialog, $mdSidenav, $http, $store, $window ) {
 
 	$scope.toggleSidenav = function ( menuId ) {
-		$mdSidenav( menuId ).toggle();
-	};
+		$mdSidenav( menuId ).toggle()
+	}
 
 	$scope.href = function ( loc, parms ) {
 		$state.go( loc, {
 			id: parms || ""
 		} )
-	};
+	}
 
 
 
@@ -25,32 +25,32 @@ angular.module( 'myApp' )
 
 		$scope.d.fname = chance.first()
 		$scope.d.lname = chance.last()
-		$scope.d.wphone = chance.phone();
+		$scope.d.wphone = chance.phone()
 
 		$scope.d.address = chance.address()
 		$scope.d.city = chance.city()
-		$scope.d.state = chance.state();
-		$scope.d.zip = chance.zip();
-		$scope.d.phone = chance.phone();
-		$scope.d.fax = chance.phone();
+		$scope.d.state = chance.state()
+		$scope.d.zip = chance.zip()
+		$scope.d.phone = chance.phone()
+		$scope.d.fax = chance.phone()
 		$scope.d.email = chance.email()
 
 		$scope.d.firealarm = true
 		$scope.d.sprinkler = chance.bool( {
 			likelihood: 75
-		} );
+		} )
 		$scope.d.firepump = chance.bool( {
 			likelihood: 50
-		} );
+		} )
 		$scope.d.emergexits = chance.bool( {
 			likelihood: 50
-		} );
+		} )
 		$scope.d.hoodsys = chance.bool( {
 			likelihood: 25
-		} );
+		} )
 		$scope.d.fireexting = chance.bool( {
 			likelihood: 50
-		} );
+		} )
 	}
 	$scope._chance()
 
@@ -94,7 +94,7 @@ angular.module( 'myApp' )
 
 
 		if ( $scope.d.pass != $scope.d.pass2 ) {
-			$mdToast.show( $mdToast.simple().content( 'Passwords do not match!' ) );
+			$mdToast.show( $mdToast.simple().content( 'Passwords do not match!' ) )
 			return
 		}
 
@@ -105,15 +105,15 @@ angular.module( 'myApp' )
 		} ).success( function ( data ) {
 
 			if ( data == "true" ) {
-				$mdToast.show( $mdToast.simple().content( 'Registration success!' ) );
+				$mdToast.show( $mdToast.simple().content( 'Registration success!' ) )
 				$scope.href( "public.login" )
 			}
 
 
 		} ).error( function ( data ) {
 			log( data )
-			$mdToast.show( $mdToast.simple().content( data ) );
-		} );
+			$mdToast.show( $mdToast.simple().content( data ) )
+		} )
 
 	}
 
@@ -140,7 +140,7 @@ angular.module( 'myApp' )
 			}
 		} ).success( function ( data ) {
 
-			$mdToast.show( $mdToast.simple().content( 'Login success!' ) );
+			$mdToast.show( $mdToast.simple().content( 'Login success!' ) )
 			$scope.data.user.authed = true
 			$scope.data.user.uname = $scope.d.uname
 			$store.set( 'data.user.authed', true )
@@ -161,9 +161,9 @@ angular.module( 'myApp' )
 
 
 		} ).error( function ( data ) {
-			$mdToast.show( $mdToast.simple().content( data ) );
+			$mdToast.show( $mdToast.simple().content( data ) )
 			log( data )
-		} );
+		} )
 	}
 
 
@@ -212,7 +212,7 @@ angular.module( 'myApp' )
 		} ).success( function ( data ) {
 
 			if ( data == "true" ) {
-				$mdToast.show( $mdToast.simple().content( 'Enrollment success!' ) );
+				$mdToast.show( $mdToast.simple().content( 'Enrollment success!' ) )
 
 				$scope.data.user.type = typ
 				$store.set( 'data.user.type', typ )
@@ -222,8 +222,8 @@ angular.module( 'myApp' )
 
 		} ).error( function ( data ) {
 			log( data )
-			$mdToast.show( $mdToast.simple().content( data ) );
-		} );
+			$mdToast.show( $mdToast.simple().content( data ) )
+		} )
 
 	}
 
@@ -275,12 +275,12 @@ angular.module( 'myApp' )
 			data: $scope.d
 		} ).success( function ( data ) {
 
-			console.log( data );
+			console.log( data )
 
 		} ).error( function ( data ) {
 			log( data )
-			$mdToast.show( $mdToast.simple().content( data ) );
-		} );
+			$mdToast.show( $mdToast.simple().content( data ) )
+		} )
 
 	}
 
@@ -293,9 +293,9 @@ angular.module( 'myApp' )
 .controller( 'propertiesCtrl', function ( $scope, $http ) {
 
 	$http.get( g_ip + "user/properties" ).then( function ( data ) {
-		console.log( data );
+		console.log( data )
 	}, function ( err ) {
-		console.log( err );
+		console.log( err )
 	} )
 
 } )

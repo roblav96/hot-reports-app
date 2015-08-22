@@ -10,7 +10,7 @@ angular.module( 'myApp', [
 ] )
 
 .factory( '$store', function ( store ) {
-	return store.getNamespacedStore( 'auth0' );
+	return store.getNamespacedStore( 'auth0' )
 } )
 
 
@@ -28,8 +28,6 @@ angular.module( 'myApp', [
 
 	$rootScope.data.user.vend = $store.get( 'data.user.vend' ) || false
 	$rootScope.data.user.prop = $store.get( 'data.user.prop' ) || false
-
-
 
 } )
 
@@ -279,7 +277,7 @@ angular.module( 'myApp', [
 
 	$urlRouterProvider.otherwise( '/public/login' )
 
-	$httpProvider.interceptors.push( 'HeadersInterceptor' );
+	$httpProvider.interceptors.push( 'HeadersInterceptor' )
 
 } )
 
