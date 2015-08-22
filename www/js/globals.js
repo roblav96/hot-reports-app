@@ -1,6 +1,6 @@
 //
 
-var g_ip = "http://localhost:1337/"
+var g_ip = "http://127.0.0.1:1337/"
 
 function log( str ) {
 	console.log( "========================================" )

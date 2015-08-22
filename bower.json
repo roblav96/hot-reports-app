@@ -9,6 +9,8 @@
     "lodash": "latest",
     "angular-recaptcha": "latest",
     "angular-smart-table": "latest",
-    "chance": "latest"
+    "chance": "latest",
+    "angular-pouchdb": "latest"
   }
 }
+
