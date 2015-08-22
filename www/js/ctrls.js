@@ -147,15 +147,12 @@ angular.module( 'myApp' )
 			$store.set( 'data.user.xid', $scope.data.user.xid )
 			$store.set( 'data.user.uname', $scope.d.uname )
 
-			$scope.data.user.type = data
-			$store.set( 'data.user.type', data )
+			if ( data == true ) {
+				$scope.data.user.isNewb = data
+				$store.set( 'data.user.isNewb', data )
 
-			if ( data == "newb" ) {
 				$scope.href( "newb.invite" )
 			} else {
-				$scope.data.user[ data ] = true
-				$store.set( 'data.user.' + data, true )
-
 				$scope.href( "user.dash" )
 			}
 
@@ -214,11 +211,8 @@ angular.module( 'myApp' )
 			if ( data == "true" ) {
 				$mdToast.show( $mdToast.simple().content( 'Enrollment success!' ) )
 
-				$scope.data.user.type = typ
-				$store.set( 'data.user.type', typ )
-
-				$scope.data.user[ typ ] = true
-				$store.set( 'data.user.' + typ, true )
+				$scope.data.user.isNewb = false
+				$store.set( 'data.user.isNewb', false )
 
 				$scope.href( "user.dash" )
 			}
@@ -272,13 +266,15 @@ angular.module( 'myApp' )
 
 
 
-	$scope.submitProperty = function ( typ ) {
+	$scope.submitProperty = function () {
 
 		$http.post( g_ip + "user/new_property", {
 			data: $scope.d
 		} ).success( function ( data ) {
 
-			console.log( data )
+			$state.go( 'user.property', {
+				propertyID: data
+			} )
 
 		} ).error( function ( data ) {
 			log( data )
@@ -292,71 +288,37 @@ angular.module( 'myApp' )
 } )
 
 
-.controller( 'propertiesCtrl', function ( $scope, $http, pouchDB ) {
+.controller( 'propertiesCtrl', function ( $scope, $http, $state ) {
 
-	$scope.myProps = []
+	$scope.myProps
 
 	$http.get( g_ip + "user/properties" ).then( function ( data ) {
-
 		var data = data.data.rows
 
-		for ( var i = 0; i < data.length; i++ ) {
+		// console.log( data );
 
-			if ( data[ i ].doc.users[ $scope.data.user.uname ] ) {
-				$scope.myProps.push( data[ i ].doc )
-				console.log( data[ i ].doc.property );
-				console.log( data[ i ].doc.users );
+		$scope.myProps = _.filter( data, function ( doc ) {
+			// console.log( doc.doc );
+
+			if ( doc.doc._id.substring( 0, 1 ) == "_" ) {
+				return false
 			};
 
-
-
-		};
+			// console.log( doc.doc.users );
+			return doc.doc.users[ $scope.data.user.uname ];
+		} )
 
 		console.log( $scope.myProps )
-		// console.log( $scope.rowCollection )
-
-		// {
-		// 	"id": "disone",
-		// 	"key": "disone",
-		// 	"value": {
-		// 		"rev": "3-cc093c5754a606868ca239ac4af12cc5"
-		// 	},
-		// 	"doc": {
-		// 		"_id": "disone",
-		// 		"_rev": "3-cc093c5754a606868ca239ac4af12cc5",
-		// 		"address": "1363 Ihuco Drive",
-		// 		"city": "Cikiwug",
-		// 		"state": "WY",
-		// 		"zip": "03144",
-		// 		"phone": "(259) 383-1827",
-		// 		"fax": "(929) 781-9502",
-		// 		"email": "ijuso@jik.com",
-		// 		"firealarm": true,
-		// 		"sprinkler": true,
-		// 		"firepump": true,
-		// 		"emergexits": false,
-		// 		"hoodsys": false,
-		// 		"fireexting": true,
-		// 		"indexProperty": "livcohosoti",
-		// 		"property": "liv coh osoti",
-		// 		"admin": "roblav961",
-		// 		"company": "synergy",
-		// 		"users": {
-		// 			"roblav961": {
-		// 				"title": "maintenace"
-		// 			},
-		// 			"roblav96": {
-		// 				"title": "manager"
-		// 			}
-		// 		}
-		// 	}
-		// }
-
-
 	}, function ( err ) {
 		console.log( err )
 	} )
 
+	$scope.hrefProperty = function ( propertyID ) {
+		console.log( propertyID );
+		$state.go( 'user.property', {
+			propertyID: propertyID
+		} )
+	}
 } )
 
 
@@ -365,14 +327,42 @@ angular.module( 'myApp' )
 
 
 
+.controller( 'propertyCtrl', function ( $scope, $http, $stateParams ) {
+	if ( $stateParams.propertyID == "" ) {
+		$scope.href( 'user.properties' )
+	}
+
+	$scope.p = {}
+	$scope.p.name = "dwd"
+	$scope.propSites
+
+	$http.get( g_ip + "user/property/" + $stateParams.propertyID ).then( function ( data ) {
+		var data = data.data.docs
+
+		// console.log( data );
+
+		for ( var i = 0; i < data.length; i++ ) {
+			if ( data[ i ].main ) {
+				$scope.p = data[ i ]
+			};
+		};
+
+		$scope.propSites = data
+
+		console.log( $scope.propSites );
 
 
 
 
 
+		// console.log( data );
+	}, function ( err ) {
+		console.log( err );
+	} )
 
 
 
+} )
 
 
 

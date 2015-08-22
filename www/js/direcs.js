@@ -85,7 +85,7 @@ angular.module( 'myApp' )
 			}
 
 			$scope.hreftoacct = function () {
-				if ( $scope.data.user.type == "newb" ) {
+				if ( $scope.data.user.isNewb ) {
 					$scope.href( "newb.acct" )
 				} else {
 					$scope.href( "user.acct" )

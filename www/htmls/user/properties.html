@@ -5,7 +5,7 @@
     <md-toolbar class="md-hue-2">
         <div class="md-toolbar-tools">
             <i class="material-icons marg-right2">search</i>
-            <input type="text" class="form-control" placeholder="Global Search" flex>
+            <input type="text" class="form-control" placeholder="Global Search (does not work yet...)" flex>
 
             <md-button class="pad-lr" ng-click="href('user.new_property')">
                 <div layout="row" layout-align="center center">
@@ -27,12 +27,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="row in myProps">
-                <td>{{row.company}}</td>
-                <td>{{row.property}}</td>
-                <td>{{row.address}}</td>
-                <td>{{row.city}}</td>
-                <td>{{row.state}}</td>
+            <tr ng-repeat="row in myProps" ng-click="hrefProperty(row.doc.indexProperty)">
+                <td>{{row.doc.company}}</td>
+                <td>{{row.doc.property}}</td>
+                <td>{{row.doc.address}}</td>
+                <td>{{row.doc.city}}</td>
+                <td>{{row.doc.state}}</td>
             </tr>
         </tbody>
     </table>

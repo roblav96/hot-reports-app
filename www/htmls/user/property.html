@@ -1,0 +1,34 @@
+<!--  -->
+
+<md-content layout="column" layout-margin>
+
+    <md-content layout="row" layout-margin>
+        <h4 layout-margin>
+            <small>Property</small> {{p.property}}
+        </h4>
+        <h4 layout-margin>
+            <small>Address</small> {{p.address}}, {{p.city}}, {{p.state}}, {{p.zip}}
+        </h4>
+        <h4 layout-margin>
+            <small>Phone</small> {{p.phone}}
+        </h4>
+        <h4 layout-margin>
+            <small>Email</small> {{p.email}}
+        </h4>
+    </md-content>
+
+    <table st-table="propSites" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Site Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in propSites">
+                <td>{{row.address}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</md-content>
+

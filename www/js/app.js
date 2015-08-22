@@ -25,10 +25,7 @@ angular.module( 'myApp', [
 	$rootScope.data.user.xid = $store.get( 'data.user.xid' ) || forge.md.sha1.create().update( _.now() ).digest().toHex()
 	$rootScope.data.user.authed = $store.get( 'data.user.authed' ) || null
 	$rootScope.data.user.uname = $store.get( 'data.user.uname' ) || null
-	$rootScope.data.user.type = $store.get( 'data.user.type' ) || null
-
-	$rootScope.data.user.vend = $store.get( 'data.user.vend' ) || false
-	$rootScope.data.user.prop = $store.get( 'data.user.prop' ) || false
+	$rootScope.data.user.isNewb = $store.get( 'data.user.isNewb' ) || null
 
 } )
 
@@ -232,7 +229,7 @@ angular.module( 'myApp', [
 		data: {
 			stateToolName: "Properties"
 		},
-		controller: 'propertiesCtrl' 
+		controller: 'propertiesCtrl'
 	} )
 
 	.state( 'user.users', {
@@ -251,6 +248,15 @@ angular.module( 'myApp', [
 		data: {
 			stateToolName: "Enroll New Property"
 		}
+	} )
+
+	.state( 'user.property', {
+		url: "/property/:propertyID",
+		templateUrl: 'htmls/user/property.html',
+		data: {
+			stateToolName: "View Property"
+		},
+		controller: 'propertyCtrl'
 	} )
 
 
