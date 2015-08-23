@@ -21,17 +21,15 @@
     <table st-table="myProps" class="table table-striped">
         <thead>
             <tr>
-                <th>Company</th>
-                <th>Property</th>
+                <th>Name</th>
                 <th>Address</th>
                 <th>City</th>
                 <th>State</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="row in myProps" ng-click="hrefProperty(row.doc.indexProperty)">
-                <td>{{row.doc.company}}</td>
-                <td>{{row.doc.property}}</td>
+            <tr ng-repeat="row in myProps" ng-click="hrefProperty(row.doc._id)">
+                <td>{{row.doc.name}}</td>
                 <td>{{row.doc.address}}</td>
                 <td>{{row.doc.city}}</td>
                 <td>{{row.doc.state}}</td>

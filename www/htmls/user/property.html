@@ -4,7 +4,7 @@
 
     <md-content layout="row" layout-margin>
         <h4 layout-margin>
-            <small>Property</small> {{p.property}}
+            <small>Property</small> {{p.name}}
         </h4>
         <h4 layout-margin>
             <small>Address</small> {{p.address}}, {{p.city}}, {{p.state}}, {{p.zip}}
@@ -15,6 +15,13 @@
         <h4 layout-margin>
             <small>Email</small> {{p.email}}
         </h4>
+
+        <md-button class="pad-lr md-primary md-raised" ng-click="hrefAddSite('p._id')">
+            <div layout="row" layout-align="center center">
+                <i class="material-icons btn-icon">add</i>
+                <span>Add Site to {{p.name}}</span>
+            </div>
+        </md-button>
     </md-content>
 
     <table st-table="propSites" class="table table-striped">

@@ -234,10 +234,6 @@ angular.module( 'myApp' )
 
 
 
-
-
-
-
 .controller( 'UserCtrl', function ( $scope, $state, $http, $mdToast ) {
 	// this dynamically loads the sidebar links from state defined links
 	$scope.links = $state.current.data.links // DO NOT REMOVE
@@ -247,16 +243,18 @@ angular.module( 'myApp' )
 	}
 
 	// $scope.d = {}
-	$scope.d.name = chance.word() + " " + chance.word() + " " + chance.word()
-	$scope.d.title = chance.word() + " " + chance.word()
+	// $scope.d.name = chance.word() + " " + chance.word() + " " + chance.word()
+	// $scope.d.title = chance.word() + " " + chance.word()
+	$scope.d.name = "10 Milk"
+	$scope.d.title = "Property Manager"
 
-	// $scope.d.address = "453 East Drive"
-	// $scope.d.city = "Westboro"
-	// $scope.d.state = "MA"
-	// $scope.d.zip = "02532"
-	// $scope.d.phone = "5346656456"
-	// $scope.d.fax = "0923478205"
-	// $scope.d.email = "user@westboro.com"
+	$scope.d.address = "10 Milk St"
+	$scope.d.city = "Boston"
+	$scope.d.state = "MA"
+		// $scope.d.zip = "02532"
+		// $scope.d.phone = "5346656456"
+		// $scope.d.fax = "0923478205"
+		// $scope.d.email = "user@westboro.com"
 
 	// $scope.d.firealarm = false
 	// $scope.d.sprinkler = false
@@ -267,51 +265,64 @@ angular.module( 'myApp' )
 
 
 
-	// $scope.submitProperty = function () {
+	/*========================================
+	=            ADD NEW PROPERTY            =
+	========================================*/
+	$scope.submitProperty = function () {
 
 		$http.post( g_ip + "user/new_property", {
 			data: $scope.d
 		} ).success( function ( data ) {
-
-			$state.go( 'user.property', {
-				propertyID: data
-			} )
-
+			console.log( data )
+			if ( data == true ) {
+				$state.go( 'user.property', {
+					propertyID: data
+				} )
+			}
 		} ).error( function ( err ) {
 			console.log( err );
 			$mdToast.show( $mdToast.simple().content( err ) )
 		} )
 
-	// }
+	}
 
 } )
+
+
+
+
+
+
 
 
 .controller( 'propertiesCtrl', function ( $scope, $http, $state ) {
 
 	$scope.myProps
 
+	/*=======================================================
+	=            GET LIST OF PROPERTIES BY UNAME            =
+	=======================================================*/
 	$http.get( g_ip + "user/properties" ).then( function ( data ) {
 		var data = data.data.rows
 
-		// console.log( data );
+		console.log( JSON.stringify( data[ 0 ].doc, true, 1 ) )
 
 		$scope.myProps = _.filter( data, function ( doc ) {
-			// console.log( doc.doc );
-
 			if ( doc.doc._id.substring( 0, 1 ) == "_" ) {
 				return false
 			};
 
-			// console.log( doc.doc.users );
-			return doc.doc.users[ $scope.data.user.uname ];
+			return doc.doc.users[ $scope.data.user.uname ] // if false it will be filtered out
 		} )
 
-		console.log( $scope.myProps )
+		// console.log( $scope.myProps )
 	}, function ( err ) {
 		console.log( err )
 	} )
 
+
+
+	/*=====  href to property user clicked on  ======*/
 	$scope.hrefProperty = function ( propertyID ) {
 		console.log( propertyID );
 		$state.go( 'user.property', {
@@ -333,8 +344,34 @@ angular.module( 'myApp' )
 	}
 
 	$scope.p = {}
-	$scope.p.name = "dwd"
 	$scope.propSites
+
+
+	/**
+	 *
+	 * TRYING TO FIGURE OUT HOW TO LIST ALL SITES FOR SPECIFIC PROPERTY
+	 *
+	 */
+
+
+	$http.get( g_ip + "user/property/" + $stateParams.propertyID ).then( function ( data ) {
+
+		console.log( JSON.stringify( data.data, true, 4 ) )
+		$scope.p = data.data
+
+
+
+	}, function ( err ) {
+
+	} )
+
+	$scope.hrefAddSite = function ( propertyID ) {
+		console.log( propertyID );
+		$state.go( 'user.add_site', {
+			propertyID: propertyID
+		} )
+	}
+
 
 	// $http.get( g_ip + "user/property/" + $stateParams.propertyID ).then( function ( data ) {
 	// 	var data = data.data.docs
@@ -370,14 +407,29 @@ angular.module( 'myApp' )
 
 
 
+expandedLog = ( function () {
+	var MAX_DEPTH = 1;
 
+	return function ( item, depth ) {
 
+		depth = depth || 0;
 
+		if ( depth > MAX_DEPTH ) {
+			console.log( item );
+			return;
+		}
 
-
-
-
-
+		if ( _.isObject( item ) ) {
+			_.each( item, function ( value, key ) {
+				console.group( key + ' : ' + ( typeof value ) );
+				expandedLog( value, depth + 1 );
+				console.groupEnd();
+			} );
+		} else {
+			console.log( item );
+		}
+	}
+} )();
 
 
 
