@@ -73,7 +73,6 @@ angular.module( 'myApp', [
 
 	.state( 'public.about', {
 		url: '/about',
-		// controller: 'RegisterCtrl',
 		templateUrl: 'htmls/public/about.html',
 		data: {
 			stateToolName: "About"
@@ -239,7 +238,6 @@ angular.module( 'myApp', [
 			stateToolName: "Users"
 		}
 	} )
-
 
 
 	.state( 'user.new_property', {

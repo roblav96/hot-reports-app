@@ -110,9 +110,9 @@ angular.module( 'myApp' )
 			}
 
 
-		} ).error( function ( data ) {
-			log( data )
-			$mdToast.show( $mdToast.simple().content( data ) )
+		} ).error( function ( err ) {
+			console.log( err );
+			$mdToast.show( $mdToast.simple().content( err ) )
 		} )
 
 	}
@@ -141,6 +141,7 @@ angular.module( 'myApp' )
 		} ).success( function ( data ) {
 
 			$mdToast.show( $mdToast.simple().content( 'Login success!' ) )
+
 			$scope.data.user.authed = true
 			$scope.data.user.uname = $scope.d.uname
 			$store.set( 'data.user.authed', true )
@@ -181,15 +182,15 @@ angular.module( 'myApp' )
 		$scope.href( "public.login" )
 	}
 
-	// $scope.d = {}
 	$scope.d.name = ""
-		// $scope.d.address = "39 Brighton Ave"
-		// $scope.d.city = "Allston"
-		// $scope.d.state = "MA"
-		// $scope.d.zip = "02134"
-		// $scope.d.phone = "6171234567"
-		// $scope.d.fax = "6171238765"
-		// $scope.d.email = "hamilton@hamiltonco.com"
+
+	// $scope.d.address = "39 Brighton Ave"
+	// $scope.d.city = "Allston"
+	// $scope.d.state = "MA"
+	// $scope.d.zip = "02134"
+	// $scope.d.phone = "6171234567"
+	// $scope.d.fax = "6171238765"
+	// $scope.d.email = "hamilton@hamiltonco.com"
 
 	// $scope.d.firealarm = false
 	// $scope.d.sprinkler = false
@@ -266,7 +267,7 @@ angular.module( 'myApp' )
 
 
 
-	$scope.submitProperty = function () {
+	// $scope.submitProperty = function () {
 
 		$http.post( g_ip + "user/new_property", {
 			data: $scope.d
@@ -276,14 +277,12 @@ angular.module( 'myApp' )
 				propertyID: data
 			} )
 
-		} ).error( function ( data ) {
-			log( data )
-			$mdToast.show( $mdToast.simple().content( data ) )
+		} ).error( function ( err ) {
+			console.log( err );
+			$mdToast.show( $mdToast.simple().content( err ) )
 		} )
 
-	}
-
-
+	// }
 
 } )
 
@@ -319,6 +318,7 @@ angular.module( 'myApp' )
 			propertyID: propertyID
 		} )
 	}
+
 } )
 
 
@@ -336,29 +336,29 @@ angular.module( 'myApp' )
 	$scope.p.name = "dwd"
 	$scope.propSites
 
-	$http.get( g_ip + "user/property/" + $stateParams.propertyID ).then( function ( data ) {
-		var data = data.data.docs
+	// $http.get( g_ip + "user/property/" + $stateParams.propertyID ).then( function ( data ) {
+	// 	var data = data.data.docs
 
-		// console.log( data );
+	// 	// console.log( data );
 
-		for ( var i = 0; i < data.length; i++ ) {
-			if ( data[ i ].main ) {
-				$scope.p = data[ i ]
-			};
-		};
+	// 	for ( var i = 0; i < data.length; i++ ) {
+	// 		if ( data[ i ].main ) {
+	// 			$scope.p = data[ i ]
+	// 		};
+	// 	};
 
-		$scope.propSites = data
+	// 	$scope.propSites = data
 
-		console.log( $scope.propSites );
-
-
+	// 	console.log( $scope.propSites );
 
 
 
-		// console.log( data );
-	}, function ( err ) {
-		console.log( err );
-	} )
+
+
+	// 	// console.log( data );
+	// }, function ( err ) {
+	// 	console.log( err );
+	// } )
 
 
 
