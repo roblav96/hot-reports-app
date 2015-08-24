@@ -93,11 +93,11 @@ angular.module( 'myApp', [
 		templateUrl: 'htmls/index.html',
 		data: {
 			links: [ {
-				name: "Request Invitation",
+				name: "Join Company",
 				state: "newb.invite",
 				icon: "person_add"
 			}, {
-				name: "Enroll Your Company",
+				name: "Enroll New Company",
 				state: "newb.enroll",
 				icon: "add_circle_outline"
 			} ]
@@ -116,7 +116,7 @@ angular.module( 'myApp', [
 		url: '/invite',
 		templateUrl: 'htmls/newb/invite.html',
 		data: {
-			stateToolName: "Request Invitation to Company"
+			stateToolName: "Join Company"
 		},
 		controller: 'InviteCtrl'
 	} )

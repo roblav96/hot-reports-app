@@ -329,11 +329,9 @@ angular.module( 'myApp' )
 			data: $scope.d
 		} ).success( function ( data ) {
 			console.log( data )
-			if ( data == true ) {
-				$state.go( 'user.property', {
-					propertyID: data
-				} )
-			}
+			$state.go( 'user.property', {
+				propertyID: data
+			} )
 		} ).error( function ( err ) {
 			console.log( err );
 			$mdToast.show( $mdToast.simple().content( err ) )
@@ -360,15 +358,15 @@ angular.module( 'myApp' )
 	$http.get( g_ip + "user/properties" ).then( function ( data ) {
 		var data = data.data.rows
 
-		console.log( JSON.stringify( data[ 0 ].doc, true, 4 ) )
+		console.log( JSON.stringify( data, true, 4 ) )
 
-		$scope.myProps = _.filter( data, function ( doc ) {
-			if ( doc.doc._id.substring( 0, 1 ) == "_" ) {
-				return false
-			};
+		// $scope.myProps = _.filter( data, function ( doc ) {
+		// 	if ( doc.doc._id.substring( 0, 1 ) == "_" ) {
+		// 		return false
+		// 	};
 
-			return doc.doc.users[ $scope.data.user.uname ] // if false it will be filtered out
-		} )
+		// 	return doc.doc.users[ $scope.data.user.uname ] // if false it will be filtered out
+		// } )
 
 		// console.log( $scope.myProps )
 	}, function ( err ) {
