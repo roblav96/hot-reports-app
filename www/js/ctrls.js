@@ -297,30 +297,35 @@ angular.module( 'myApp' )
 
 
 
-.controller( 'propertiesCtrl', function ( $scope, $http, $state ) {
+.controller( 'propertiesCtrl', function ( $scope, $http, $state, pouchDB ) {
 
 	$scope.myProps
 
 	/*=======================================================
 	=            GET LIST OF PROPERTIES BY UNAME            =
 	=======================================================*/
-	$http.get( g_ip + "user/properties" ).then( function ( data ) {
-		var data = data.data.rows
+	var db = pouchDB( 'http://admin:admin@localhost:15984/report_properties' );
 
-		console.log( JSON.stringify( data[ 0 ].doc, true, 4 ) )
 
-		$scope.myProps = _.filter( data, function ( doc ) {
-			if ( doc.doc._id.substring( 0, 1 ) == "_" ) {
-				return false
-			};
 
-			return doc.doc.users[ $scope.data.user.uname ] // if false it will be filtered out
-		} )
 
-		// console.log( $scope.myProps )
-	}, function ( err ) {
-		console.log( err )
-	} )
+	// $http.get( g_ip + "user/properties" ).then( function ( data ) {
+	// 	var data = data.data.rows
+
+	// 	// console.log( JSON.stringify( data[ 0 ].doc, true, 4 ) )
+
+	// 	$scope.myProps = _.filter( data, function ( doc ) {
+	// 		if ( doc.doc._id.substring( 0, 1 ) == "_" ) {
+	// 			return false
+	// 		};
+
+	// 		return doc.doc.users[ $scope.data.user.uname ] // if false it will be filtered out
+	// 	} )
+
+	// 	// console.log( $scope.myProps )
+	// }, function ( err ) {
+	// 	console.log( err )
+	// } )
 
 
 
@@ -358,7 +363,7 @@ angular.module( 'myApp' )
 
 	$http.get( g_ip + "user/property/" + $stateParams.propertyID ).then( function ( data ) {
 
-		console.log( JSON.stringify( data.data, true, 4 ) )
+		// console.log( JSON.stringify( data.data, true, 4 ) )
 		$scope.p = data.data
 
 

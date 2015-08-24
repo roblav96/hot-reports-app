@@ -19,7 +19,9 @@ angular.module( 'myApp' )
 
 } )
 
-
+.service( 'service', function ( pouchDB ) {
+	var db = pouchDB( 'name' );
+} )
 
 
 .factory( '$errz', function ( $injector ) {
