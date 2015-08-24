@@ -3,7 +3,9 @@
 angular.module( 'myApp' )
 
 
-
+/*========================================
+=            INDEX CONTROLLER            =
+========================================*/
 .controller( 'IndexCtrl', function ( $scope, $log, $q, $state, $mdToast, $mdDialog, $mdSidenav, $http, $store, $window ) {
 
 	$scope.toggleSidenav = function ( menuId ) {
@@ -17,7 +19,7 @@ angular.module( 'myApp' )
 	}
 
 
-
+	/*=====  define scope.d with chance vars  ======*/
 	$scope.d = {}
 	$scope._chance = function () {
 		// $scope.d.name = ""
@@ -26,6 +28,7 @@ angular.module( 'myApp' )
 		$scope.d.fname = chance.first()
 		$scope.d.lname = chance.last()
 		$scope.d.wphone = chance.phone()
+		$scope.d.pphone = chance.phone()
 
 		$scope.d.address = chance.address()
 		$scope.d.city = chance.city()
@@ -60,10 +63,16 @@ angular.module( 'myApp' )
 		localStorage.clear()
 	}
 
+
+
 } )
 
 
 
+
+/*=========================================
+=            PUBLIC CONTROLLER            =
+=========================================*/
 .controller( 'PublicCtrl', function ( $scope, $state, $http ) {
 
 	// this dynamically loads the sidebar links from state defined links
@@ -86,6 +95,11 @@ angular.module( 'myApp' )
 
 
 
+
+
+/*===========================================
+=            REGISTER CONTROLLER            =
+===========================================*/
 .controller( 'RegisterCtrl', function ( $scope, $log, $mdToast, $mdDialog, $state, $http, $store, $timeout ) {
 
 	$scope.submit = function () {
@@ -126,7 +140,9 @@ angular.module( 'myApp' )
 
 
 
-
+/*========================================
+=            LOGIN CONTROLLER            =
+========================================*/
 .controller( 'LoginCtrl', function ( $scope, $mdToast, $window, $http, $store, $state, $timeout ) {
 
 	$scope.submit = function () {
@@ -142,7 +158,7 @@ angular.module( 'myApp' )
 
 			$mdToast.show( $mdToast.simple().content( 'Login success!' ) )
 
-			console.log( JSON.stringify( $scope.d, true, 4 ) )
+			// console.log( JSON.stringify( $scope.d, true, 4 ) )
 
 			$scope.data.user.authed = true
 			$scope.data.user.uname = $scope.d.uname
@@ -175,7 +191,44 @@ angular.module( 'myApp' )
 
 
 
+/*=========================================
+=            INVITE CONTROLLER            =
+=========================================*/
+.controller( 'InviteCtrl', function ( $scope, $state, $http, $mdToast, $store ) {
+	$scope.myCompanies = []
+	$scope.rowCollection = []
 
+	$http.get( g_ip + "newb/invite" ).then( function ( data ) {
+		var data = data.data.rows
+
+		$scope.rowCollection = _.filter( data, function ( doc ) {
+			if ( doc.doc._id.substring( 0, 1 ) == "_" ) {
+				return false
+			} else {
+				return true
+			}
+		} )
+
+	}, function ( err ) {
+		console.log( err )
+	} )
+
+} )
+
+
+
+
+
+
+
+
+
+
+
+
+/*=======================================
+=            NEWB CONTROLLER            =
+=======================================*/
 .controller( 'NewbCtrl', function ( $scope, $state, $http, $mdToast, $store ) {
 	// this dynamically loads the sidebar links from state defined links
 	$scope.links = $state.current.data.links // DO NOT REMOVE
@@ -235,7 +288,9 @@ angular.module( 'myApp' )
 
 
 
-
+/*=======================================
+=            USER CONTROLLER            =
+=======================================*/
 .controller( 'UserCtrl', function ( $scope, $state, $http, $mdToast ) {
 	// this dynamically loads the sidebar links from state defined links
 	$scope.links = $state.current.data.links // DO NOT REMOVE
@@ -267,9 +322,7 @@ angular.module( 'myApp' )
 
 
 
-	/*========================================
-	=            ADD NEW PROPERTY            =
-	========================================*/
+	/*=====  add new property  ======*/
 	$scope.submitProperty = function () {
 
 		$http.post( g_ip + "user/new_property", {
@@ -296,14 +349,14 @@ angular.module( 'myApp' )
 
 
 
-
+/*=============================================
+=            PROPERTIES CONTROLLER            =
+=============================================*/
 .controller( 'propertiesCtrl', function ( $scope, $http, $state ) {
 
 	$scope.myProps
 
-	/*=======================================================
-	=            GET LIST OF PROPERTIES BY UNAME            =
-	=======================================================*/
+	/*=====  get list of properties by uname  ======*/
 	$http.get( g_ip + "user/properties" ).then( function ( data ) {
 		var data = data.data.rows
 
@@ -339,7 +392,9 @@ angular.module( 'myApp' )
 
 
 
-
+/*===========================================
+=            PROPERTY CONTROLLER            =
+===========================================*/
 .controller( 'propertyCtrl', function ( $scope, $http, $stateParams, $window ) {
 	if ( $stateParams.propertyID == "" ) {
 		$scope.href( 'user.properties' )
@@ -347,13 +402,6 @@ angular.module( 'myApp' )
 
 	$scope.p = {}
 	$scope.propSites
-
-
-	/**
-	 *
-	 * TRYING TO FIGURE OUT HOW TO LIST ALL SITES FOR SPECIFIC PROPERTY
-	 *
-	 */
 
 
 	$http.get( g_ip + "user/property/" + $stateParams.propertyID ).then( function ( data ) {
@@ -409,29 +457,19 @@ angular.module( 'myApp' )
 
 
 
-expandedLog = ( function () {
-	var MAX_DEPTH = 1;
 
-	return function ( item, depth ) {
 
-		depth = depth || 0;
 
-		if ( depth > MAX_DEPTH ) {
-			console.log( item );
-			return;
-		}
 
-		if ( _.isObject( item ) ) {
-			_.each( item, function ( value, key ) {
-				console.group( key + ' : ' + ( typeof value ) );
-				expandedLog( value, depth + 1 );
-				console.groupEnd();
-			} );
-		} else {
-			console.log( item );
-		}
-	}
-} )();
+
+
+
+
+
+
+
+
+
 
 
 

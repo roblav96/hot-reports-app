@@ -4,8 +4,9 @@ angular.module( 'myApp' )
 
 
 
-/*==========  sidebar link  ==========*/
-
+/*===============================================
+=            INDIVIDUAL SIDEBAR LINK            =
+===============================================*/
 .directive( 'sidebarLink', function () {
 	return {
 		restrict: 'E',
@@ -46,7 +47,9 @@ angular.module( 'myApp' )
 
 
 
-
+/*==================================================
+=            USERNAME BUTTON IN TOOLBAR            =
+==================================================*/
 .directive( 'unameBtn', function () {
 	return {
 		restrict: 'E',
@@ -73,6 +76,8 @@ angular.module( 'myApp' )
 				}
 			}
 
+
+			/*=====  logout function  ======*/
 			$scope.logout = function () {
 				$scope.data.user.authed = null
 				$scope.data.user.uname = null
@@ -111,12 +116,15 @@ angular.module( 'myApp' )
 
 
 
+/*===========================================
+=            TOOLBAR HELP BUTTON            =
+===========================================*/
+/**
 
+	TODO:
+	- fix showing on incorrect states
 
-
-
-/*==========  toolbar help  ==========*/
-
+ */
 .directive( 'toolbarHelp', function () {
 	return {
 		restrict: 'E',
@@ -173,8 +181,11 @@ angular.module( 'myApp' )
 
 
 
-/*==========  toolbar state  ==========*/
 
+
+/*=====================================================
+=            TOOLBAR STATE IDENTIFIER/NAME            =
+=====================================================*/
 .directive( 'toolbarState', function () {
 	return {
 		restrict: 'A',
@@ -201,9 +212,9 @@ angular.module( 'myApp' )
 
 
 
-
-/*==========  input change  ==========*/
-
+/*=======================================
+=            ON INPUT CHANGE            =
+=======================================*/
 .directive( 'inputChange', function () {
 	return {
 		restrict: 'A',
@@ -242,90 +253,6 @@ angular.module( 'myApp' )
 
 	}
 } )
-
-
-
-/*==========  focus me  ==========*/
-
-.directive( 'focusMe', function () {
-	return {
-		restrict: 'A',
-		link: function ( scope, elem, attrs ) {
-			scope.focusMe = elem
-				// elem.find( 'input' )[ 0 ].focus()
-		}
-	}
-} )
-
-
-
-
-
-
-
-
-
-/*==========  user register  ==========*/
-
-.directive( 'userRegister', function () {
-	return {
-		restrict: 'E',
-		link: function ( scope, elem, attrs ) {
-			scope.focusMe = elem
-				// elem.find( 'input' )[ 0 ].focus()
-		}
-	}
-} )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

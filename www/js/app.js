@@ -116,8 +116,9 @@ angular.module( 'myApp', [
 		url: '/invite',
 		templateUrl: 'htmls/newb/invite.html',
 		data: {
-			stateToolName: "Request Invitation"
-		}
+			stateToolName: "Request Invitation to Company"
+		},
+		controller: 'InviteCtrl'
 	} )
 
 	.state( 'newb.enroll', {
