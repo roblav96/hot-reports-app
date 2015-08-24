@@ -142,6 +142,8 @@ angular.module( 'myApp' )
 
 			$mdToast.show( $mdToast.simple().content( 'Login success!' ) )
 
+			console.log( JSON.stringify( $scope.d, true, 4 ) )
+
 			$scope.data.user.authed = true
 			$scope.data.user.uname = $scope.d.uname
 			$store.set( 'data.user.authed', true )
@@ -305,7 +307,7 @@ angular.module( 'myApp' )
 	$http.get( g_ip + "user/properties" ).then( function ( data ) {
 		var data = data.data.rows
 
-		console.log( JSON.stringify( data[ 0 ].doc, true, 1 ) )
+		console.log( JSON.stringify( data[ 0 ].doc, true, 4 ) )
 
 		$scope.myProps = _.filter( data, function ( doc ) {
 			if ( doc.doc._id.substring( 0, 1 ) == "_" ) {
@@ -338,7 +340,7 @@ angular.module( 'myApp' )
 
 
 
-.controller( 'propertyCtrl', function ( $scope, $http, $stateParams ) {
+.controller( 'propertyCtrl', function ( $scope, $http, $stateParams, $window ) {
 	if ( $stateParams.propertyID == "" ) {
 		$scope.href( 'user.properties' )
 	}
