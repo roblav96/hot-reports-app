@@ -81,6 +81,7 @@ angular.module( 'myApp' )
 			$scope.logout = function () {
 				$scope.data.user.authed = null
 				$scope.data.user.uname = null
+				$scope.data.user.ucompany = null
 				$scope.data.user.type = null
 				$scope.data.user.vend = false
 				$scope.data.user.prop = false
@@ -189,7 +190,6 @@ angular.module( 'myApp' )
 .directive( 'toolbarState', function () {
 	return {
 		restrict: 'A',
-		scope: {},
 
 		link: function ( scope, elem, attrs ) {
 			scope.itself = elem
@@ -198,7 +198,13 @@ angular.module( 'myApp' )
 
 		controller: function ( $scope, $state ) {
 			$scope.changeStateName = function () {
-				$scope.itself.text( $state.current.data.stateToolName )
+				var str = $state.current.data.stateToolName
+				// if ( $scope.data.user.ucompany ) {
+				// 	var capstr = $scope.data.user.ucompany
+				// 	capstr = capstr.charAt(0).toUpperCase() + capstr.substring(1)
+				// 	str = capstr + " > " + str
+				// }
+				$scope.itself.text( str )
 			}
 
 			$scope.$on( '$stateChangeSuccess', function ( event, toState, toParams, fromState, fromParams ) {

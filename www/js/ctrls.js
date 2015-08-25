@@ -172,6 +172,9 @@ angular.module( 'myApp' )
 
 				$scope.href( "newb.invite" )
 			} else {
+				$scope.data.user.ucompany = data
+				$store.set( 'data.user.ucompany', data )
+
 				$scope.href( "user.dash" )
 			}
 
@@ -267,8 +270,11 @@ angular.module( 'myApp' )
 			if ( data == "true" ) {
 				$mdToast.show( $mdToast.simple().content( 'Enrollment success!' ) )
 
-				$scope.data.user.isNewb = false
-				$store.set( 'data.user.isNewb', false )
+				$scope.data.user.isNewb = null
+				$store.remove( 'data.user.isNewb' )
+
+				$scope.data.user.ucompany = $scope.d.name
+				$store.set( 'data.user.ucompany', $scope.d.name )
 
 				$scope.href( "user.dash" )
 			}
