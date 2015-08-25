@@ -21,7 +21,7 @@
         <toolbar-help ng-click="show()"></toolbar-help>
         <!-- </span> -->
 
-        <md-button md-show="data.user.ucompany">
+        <md-button ng-show="data.user.ucompany">
             <div layout="row" layout-align="center center">
                 <i class="material-icons btn-icon">account_balance</i>
                 <span>{{data.user.ucompany}}</span>

@@ -25,7 +25,6 @@ angular.module( 'myApp', [
 	$rootScope.data.user.xid = $store.get( 'data.user.xid' ) || forge.md.sha1.create().update( _.now() ).digest().toHex()
 	$rootScope.data.user.authed = $store.get( 'data.user.authed' ) || null
 	$rootScope.data.user.uname = $store.get( 'data.user.uname' ) || null
-	$rootScope.data.user.ucompany = $store.get( 'data.user.ucompany' ) || null
 	$rootScope.data.user.isNewb = $store.get( 'data.user.isNewb' ) || null
 
 } )
@@ -95,8 +94,8 @@ angular.module( 'myApp', [
 		data: {
 			links: [ {
 				name: "Join Company",
-				state: "newb.invite",
-				icon: "person_add"
+				state: "newb.join",
+				icon: "input"
 			}, {
 				name: "Enroll New Company",
 				state: "newb.enroll",
@@ -113,9 +112,9 @@ angular.module( 'myApp', [
 		}
 	} )
 
-	.state( 'newb.invite', {
-		url: '/invite',
-		templateUrl: 'htmls/newb/invite.html',
+	.state( 'newb.join', {
+		url: '/join',
+		templateUrl: 'htmls/newb/join.html',
 		data: {
 			stateToolName: "Join Company"
 		},

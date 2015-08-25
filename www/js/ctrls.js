@@ -170,11 +170,8 @@ angular.module( 'myApp' )
 				$scope.data.user.isNewb = data
 				$store.set( 'data.user.isNewb', data )
 
-				$scope.href( "newb.invite" )
+				$scope.href( "newb.join" )
 			} else {
-				$scope.data.user.ucompany = data
-				$store.set( 'data.user.ucompany', data )
-
 				$scope.href( "user.dash" )
 			}
 
@@ -366,13 +363,11 @@ angular.module( 'myApp' )
 
 		console.log( JSON.stringify( data, true, 4 ) )
 
-		// $scope.myProps = _.filter( data, function ( doc ) {
-		// 	if ( doc.doc._id.substring( 0, 1 ) == "_" ) {
-		// 		return false
-		// 	};
-
-		// 	return doc.doc.users[ $scope.data.user.uname ] // if false it will be filtered out
-		// } )
+		$scope.myProps = _.filter( data, function ( doc ) {
+			if ( doc.doc._id.substring( 0, 1 ) == "_" ) {
+				return false
+			}
+		} )
 
 		// console.log( $scope.myProps )
 	}, function ( err ) {
