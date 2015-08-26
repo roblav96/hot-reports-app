@@ -1,0 +1,40 @@
+<!--  -->
+
+<md-content layout="column">
+
+    <table st-table="myCompanies" st-safe-src="rowCollection" class="table table-striped">
+        <thead>
+            <tr>
+                <th colspan="6">
+                    <div layout="row">
+                        <input st-search class="form-control" placeholder="Search Anything..." type="text">
+                        <md-button style="margin: 0 10px 0 10px;" ng-click="href('user.add_property')" class="md-primary">
+                            <div layout="row" layout-align="center center">
+                                <i style="margin-left: 20px;"class="material-icons btn-icon">add</i>
+                                <span style="margin-right: 20px;">Add Property</span>
+                            </div>
+                        </md-button>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th>Company</th>
+                <th>Property</th>
+                <th>Property Manager</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in myCompanies" ng-click="join(row.doc.type, row.doc._id)">
+                <td join-item-icon typ="row.doc.type" class="pad0"></td>
+                <td>{{row.doc.name}}</td>
+                <td>{{row.doc.address}}</td>
+                <td>{{row.doc.city}}</td>
+                <td>{{row.doc.state}}</td>
+                <td>{{row.doc.zip}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</md-content>
+
