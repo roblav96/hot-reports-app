@@ -5,7 +5,23 @@
     font-family: monospace;
 }
 
-
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+input,
+/*p,*/
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: monospace !important;
+}
 
 .content-wrapper {
     position: relative;
@@ -100,27 +116,35 @@ md-content div {
 }
 
 .marg-lr {
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .marg0 {
     margin: 0px !important;
 }
 
-.marg-right1 {
+.marg-r1 {
+    margin-right: 5px;
+}
+
+.marg-r2 {
     margin-right: 10px;
 }
 
-.marg-right2 {
+.marg-r3 {
     margin-right: 20px;
 }
 
-.marg-left1 {
+.marg-l1 {
+    margin-left: 5px;
+}
+
+.marg-l2 {
     margin-left: 10px;
 }
 
-.marg-left2 {
+.marg-l3 {
     margin-left: 20px;
 }
 

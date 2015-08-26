@@ -191,38 +191,6 @@ angular.module( 'myApp' )
 
 
 
-/*=========================================
-=            INVITE CONTROLLER            =
-=========================================*/
-.controller( 'InviteCtrl', function ( $scope, $state, $http, $mdToast, $store ) {
-	$scope.myCompanies = []
-	$scope.rowCollection = []
-
-	$http.get( g_ip + "newb/invite" ).then( function ( data ) {
-		var data = data.data.rows
-
-		$scope.rowCollection = _.filter( data, function ( doc ) {
-			if ( doc.doc._id.substring( 0, 1 ) == "_" ) {
-				return false
-			} else {
-				return true
-			}
-		} )
-
-	}, function ( err ) {
-		console.log( err )
-	} )
-
-} )
-
-
-
-
-
-
-
-
-
 
 
 
@@ -254,36 +222,112 @@ angular.module( 'myApp' )
 	// $scope.d.hoodsys = false
 	// $scope.d.fireexting = false
 
-	$scope.submit = function ( typ ) {
-
-		$scope.d = _.pick( $scope.d, 'name', 'address', 'city', 'state', 'zip', 'phone', 'fax', 'email', 'firealarm', 'hoodsys', 'emergexits', 'firepump', 'sprinkler' )
+} )
 
 
-		$http.post( g_ip + "newb/enroll", {
-			data: $scope.d,
-			typ: typ
-		} ).success( function ( data ) {
 
-			if ( data == "true" ) {
-				$mdToast.show( $mdToast.simple().content( 'Enrollment success!' ) )
+/*=======================================
+=            JOIN CONTROLLER            =
+=======================================*/
+.controller( 'JoinCtrl', function ( $scope, $state, $http, $mdToast, $store ) {
+	$scope.myCompanies = []
+	$scope.rowCollection = []
 
+	$http.get( g_ip + "newb/invite" ).then( function ( data ) {
+		var data = data.data.rows
+
+		$scope.rowCollection = _.filter( data, function ( doc ) {
+			if ( doc.doc._id.substring( 0, 1 ) == "_" ) {
+				return false
+			} else {
+				return true
+			}
+		} )
+
+	}, function ( err ) {
+		console.log( err )
+
+	} )
+
+} )
+
+
+
+/*=========================================
+=            ENROLL CONTROLLER            =
+=========================================*/
+.controller( 'EnrollCtrl', function ( $scope, $state, $http, $mdToast, $store ) {
+	// $scope.d.name = "Hamilton Co"
+	$scope.d.type = null
+
+	$scope.selected = false
+	$scope.vendor = false
+
+	$scope.enroll = function ( type ) {
+		if ( type == 'vend' ) {
+			$scope.vendor = true
+		}
+		$scope.d.type = type
+		$scope.selected = true
+	}
+
+	$scope.goback = function () {
+		$scope.d.type = null
+		$scope.vendor = false
+		$scope.selected = false
+	}
+
+	$scope.submit = function () {
+		var sendit = _.pick( $scope.d, 'name', 'type', 'address', 'city', 'state', 'zip', 'phone', 'fax', 'email', 'firealarm', 'sprinkler', 'firepump', 'emergexits', 'hoodsys', 'fireexting' )
+
+		if ( $scope.d.type == 'prop' ) {
+			sendit = _.omit( sendit, [ 'firealarm', 'sprinkler', 'firepump', 'emergexits', 'hoodsys', 'fireexting' ] )
+		}
+
+		$http.post( g_ip + "newb/enroll", sendit ).then( function ( data ) {
+			var data = data.data
+
+			if ( data == true ) {
 				$scope.data.user.isNewb = null
 				$store.remove( 'data.user.isNewb' )
-
-				$scope.data.user.ucompany = $scope.d.name
-				$store.set( 'data.user.ucompany', $scope.d.name )
+				$mdToast.show( $mdToast.simple().content( 'Enrollment of ' + $scope.d.name + ' completed!' ) )
 
 				$scope.href( "user.dash" )
 			}
-
-		} ).error( function ( data ) {
-			log( data )
-			$mdToast.show( $mdToast.simple().content( data ) )
+			console.log( data )
+		}, function ( err ) {
+			console.log( err )
 		} )
 
+		// $http.post( g_ip + "newb/enroll", sendit ).success( function ( data ) {
+
+		// 	cld
+
+		// 	if ( data == "true" ) {
+		// 		$mdToast.show( $mdToast.simple().content( 'Enrollment success!' ) )
+
+		// 		$scope.data.user.isNewb = null
+		// 		$store.remove( 'data.user.isNewb' )
+
+		// 		$scope.data.user.ucompany = $scope.d.name
+		// 		$store.set( 'data.user.ucompany', $scope.d.name )
+
+		// 		$scope.href( "user.dash" )
+		// 	}
+
+		// } ).error( function ( data ) {
+		// 	console.log( data )
+		// 	$mdToast.show( $mdToast.simple().content( data ) )
+		// } )
 	}
 
 } )
+
+
+
+
+
+
 
 
 

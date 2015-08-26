@@ -118,7 +118,7 @@ angular.module( 'myApp', [
 		data: {
 			stateToolName: "Join Company"
 		},
-		controller: 'InviteCtrl'
+		controller: 'JoinCtrl'
 	} )
 
 	.state( 'newb.enroll', {
@@ -126,7 +126,8 @@ angular.module( 'myApp', [
 		templateUrl: 'htmls/newb/enroll.html',
 		data: {
 			stateToolName: "Enroll New Company"
-		}
+		},
+		controller: 'EnrollCtrl'
 	} )
 
 	.state( 'newb.inv_propmgr', {

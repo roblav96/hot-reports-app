@@ -2,19 +2,7 @@
 
 <md-content layout="column" class="md-padding">
 
-    <div class="panel panel-primary" flex>
-        <div class="panel-heading">
-            <h3 class="panel-title bold">Which type of company would you like to enroll?</h3>
-        </div>
-        <div class="panel-body">
-            <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-            </div>
-        </div>
-    </div>
-
-    <div class="panel panel-primary" flex>
+    <div ng-hide="selected" class="panel panel-primary" flex>
         <div class="panel-heading">
             <h3 class="panel-title bold">Which type of company would you like to enroll?</h3>
         </div>
@@ -27,7 +15,7 @@
                             <i hide-sm class="material-icons md-128">location_city</i>
                         </center>
                         <div class="caption">
-                            <button ng-click="href('newb.enr_propmgt')" class="btn btn-primary btn-block" role="button">Enroll Your Property Management Company</button>
+                            <button ng-click="enroll('prop')" class="btn btn-primary btn-block" role="button">Enroll Your Property Management Company</button>
                         </div>
                     </div>
                 </div>
@@ -35,10 +23,12 @@
                     <div class="thumbnail">
                         <center>
                             <h3>Service Provider</h3>
-                            <i hide-sm class="material-icons md-128">build</i>
+                            <i hide-sm class="material-icons md-128">build
+
+                            </i>
                         </center>
                         <div class="caption">
-                            <button ng-click="href('newb.enr_vendor')" class="btn btn-primary btn-block" role="button">Enroll Your Service Company</button>
+                            <button ng-click="enroll('vend')" class="btn btn-primary btn-block" role="button">Enroll Your Service Company</button>
                         </div>
                     </div>
                 </div>
@@ -46,5 +36,125 @@
         </div>
     </div>
 
+    <div ng-show="selected" class="panel panel-primary" flex>
+        <div class="panel-heading" layout="row" layout-align="space-between center">
+            <h3 class="panel-title bold">Please fill out company information:</h3>
 
+            <md-button class="marg0 md-raised" ng-click="goback()">
+                <div layout="row" layout-align="center center">
+                    <i class="material-icons marg-r1">arrow_back</i>
+                    <span>Go Back</span>
+                </div>
+            </md-button>
+        </div>
+        <div class="panel-body">
+
+            <form ng-submit="submit()">
+                <div class="row">
+
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Name of Company</label>
+                            <input type="text" class="form-control" ng-model="d.name" required>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div ng-show="vendor" class="col-xs-12 well">
+                        <p>Provided Fields of Service:</p>
+                        <div class="col-md-4">
+                            <md-checkbox ng-model="d.firealarm">
+                                Fire Alarm
+                            </md-checkbox>
+                        </div>
+                        <div class="col-md-4">
+                            <md-checkbox ng-model="d.sprinkler">
+                                Sprinkler
+                            </md-checkbox>
+                        </div>
+                        <div class="col-md-4">
+                            <md-checkbox ng-model="d.firepump">
+                                Fire Pump
+                            </md-checkbox>
+                        </div>
+                        <div class="col-md-4">
+                            <md-checkbox ng-model="d.emergexits">
+                                Emergency Exits
+                            </md-checkbox>
+                        </div>
+                        <div class="col-md-4">
+                            <md-checkbox ng-model="d.hoodsys">
+                                Hood Systems
+                            </md-checkbox>
+                        </div>
+                        <div class="col-md-4">
+                            <md-checkbox ng-model="d.fireexting">
+                                Fire Extinguishers
+                            </md-checkbox>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Street Address</label>
+                            <input type="text" class="form-control" ng-model="d.address" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" class="form-control" ng-model="d.city" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>State</label>
+                            <input type="text" class="form-control" ng-model="d.state" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Zip</label>
+                            <input type="text" class="form-control" ng-model="d.zip" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="text" class="form-control" ng-model="d.phone" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Fax Number</label>
+                            <input type="text" class="form-control" ng-model="d.fax" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="text" class="form-control" ng-model="d.email" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary btn-block">Enroll - {{d.name}}</button>
+                    </div>
+
+                </div>
+            </form>
+
+
+        </div>
+    </div>
 </md-content>
+

@@ -62,9 +62,6 @@ angular.module( 'myApp' )
 		controller: function ( $scope ) {
 
 			$scope.toShow = function () {
-
-				// console.log( "obj" )
-
 				if ( !$scope.unameSelf ) {
 					return
 				}
@@ -81,8 +78,6 @@ angular.module( 'myApp' )
 			$scope.logout = function () {
 				$scope.data.user.authed = null
 				$scope.data.user.uname = null
-				$scope.data.user.ucompany = null
-				$scope.data.user.type = null
 				$scope.data.user.isNewb = null
 				localStorage.clear()
 
