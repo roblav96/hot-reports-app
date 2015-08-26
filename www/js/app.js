@@ -130,38 +130,6 @@ angular.module( 'myApp', [
 		controller: 'EnrollCtrl'
 	} )
 
-	.state( 'newb.inv_propmgr', {
-		url: '/inv_propmgr',
-		templateUrl: 'htmls/newb/inv_propmgr.html',
-		data: {
-			stateToolName: "Request Property Invite"
-		}
-	} )
-
-	.state( 'newb.inv_vendor', {
-		url: '/inv_vendor',
-		templateUrl: 'htmls/newb/inv_vendor.html',
-		data: {
-			stateToolName: "Request Vendor Invite"
-		}
-	} )
-
-	.state( 'newb.enr_propmgt', {
-		url: '/enr_propmgt',
-		templateUrl: 'htmls/newb/enr_propmgt.html',
-		data: {
-			stateToolName: "Enroll New Property Management Company"
-		}
-	} )
-
-	.state( 'newb.enr_vendor', {
-		url: '/enr_vendor',
-		templateUrl: 'htmls/newb/enr_vendor.html',
-		data: {
-			stateToolName: "Enroll New Service Company"
-		}
-	} )
-
 
 
 

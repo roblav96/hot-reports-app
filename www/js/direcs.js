@@ -193,11 +193,11 @@ angular.module( 'myApp' )
 		controller: function ( $scope, $state ) {
 			$scope.changeStateName = function () {
 				var str = $state.current.data.stateToolName
-				// if ( $scope.data.user.ucompany ) {
-				// 	var capstr = $scope.data.user.ucompany
-				// 	capstr = capstr.charAt(0).toUpperCase() + capstr.substring(1)
-				// 	str = capstr + " > " + str
-				// }
+					// if ( $scope.data.user.ucompany ) {
+					// 	var capstr = $scope.data.user.ucompany
+					// 	capstr = capstr.charAt(0).toUpperCase() + capstr.substring(1)
+					// 	str = capstr + " > " + str
+					// }
 				$scope.itself.text( str )
 			}
 
@@ -262,6 +262,34 @@ angular.module( 'myApp' )
 
 
 
+
+
+
+
+
+/*===========================================
+=            JOIN LIST ITEM ICON            =
+===========================================*/
+.directive( 'joinItemIcon', function () {
+	return {
+		restrict: 'A',
+
+		scope: {
+			typ: '&',
+		},
+
+		controller: function ( $scope, $state ) {
+			$scope.icon
+			if ($scope.typ() == "prop") {
+				$scope.icon = "location_city"
+			} else {
+				$scope.icon = "build"
+			}
+		},
+		template: '<i hide-sm class="material-icons marg1 pad-l2 md-28">{{ ::icon }}</i>'
+
+	}
+} )
 
 
 

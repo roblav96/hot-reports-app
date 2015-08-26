@@ -2,13 +2,13 @@
 
 <md-content layout="column">
 
-        <h3 layout-margin>Select the company you would like to join:</h3>
+    <h4 layout-margin>Select the company you would like to join:</h4>
 
     <table st-table="myCompanies" st-safe-src="rowCollection" class="table table-striped">
         <thead>
             <tr>
                 <th colspan="6">
-                    <input st-search class="form-control" placeholder="global search ..." type="text" />
+                    <input st-search class="form-control" placeholder="Search Anything..." type="text" />
                 </th>
             </tr>
             <tr>
@@ -21,8 +21,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="row in myCompanies">
-                <td>{{row.doc.type}}</td>
+            <tr ng-repeat="row in myCompanies" ng-click="join(row.doc.type, row.doc._id)">
+                <td join-item-icon typ="row.doc.type" class="pad0"></td>
                 <td>{{row.doc.name}}</td>
                 <td>{{row.doc.address}}</td>
                 <td>{{row.doc.city}}</td>
@@ -35,3 +35,4 @@
 
 
 </md-content>
+

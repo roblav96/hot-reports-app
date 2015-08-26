@@ -233,10 +233,11 @@ angular.module( 'myApp' )
 	$scope.myCompanies = []
 	$scope.rowCollection = []
 
+	/*=====  get all companies  ======*/
 	$http.get( g_ip + "newb/invite" ).then( function ( data ) {
 		var data = data.data.rows
 
-		$scope.rowCollection = _.filter( data, function ( doc ) {
+		data = _.filter( data, function ( doc ) {
 			if ( doc.doc._id.substring( 0, 1 ) == "_" ) {
 				return false
 			} else {
@@ -244,10 +245,30 @@ angular.module( 'myApp' )
 			}
 		} )
 
+		for ( var i = 0; i < data.length; i++ ) {
+			data[ i ].doc = _.pick( data[ i ].doc, 'type', 'name', 'address', 'city', 'state', 'zip', '_id' )
+		}
+
+		$scope.rowCollection = data
+
+		console.log( $scope.rowCollection )
 	}, function ( err ) {
 		console.log( err )
-
 	} )
+
+
+	/*=====  click on company item  ======*/
+	$scope.join = function ( type, name ) {
+		/**
+			TODO:
+			- PICK UP HERE FOR JOINING
+		 */
+		console.log( type )
+		console.log( name )
+	}
+
+
+
 
 } )
 
