@@ -157,6 +157,10 @@ angular.module( 'myApp', [
 				state: "user.schedule",
 				icon: "today"
 			}, {
+				name: "Companies",
+				state: "user.companies",
+				icon: "account_balance"
+			}, {
 				name: "Properties",
 				state: "user.properties",
 				icon: "location_city"
@@ -190,6 +194,15 @@ angular.module( 'myApp', [
 		data: {
 			stateToolName: "Schedule"
 		}
+	} )
+
+	.state( 'user.companies', {
+		url: '/companies',
+		templateUrl: 'htmls/user/companies.html',
+		data: {
+			stateToolName: "Companies"
+		}
+		// controller: 'CompaniesCtrl'
 	} )
 
 	.state( 'user.properties', {

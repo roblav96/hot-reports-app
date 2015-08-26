@@ -11,73 +11,44 @@
 
 
                     <form ng-submit="submit()">
-                        <fieldset ng-disabled="disableSubmit">
 
-                            <div layout layout-sm="column">
-                                <md-input-container flex>
-                                    <label>First name</label>
-                                    <input type="text" ng-model="d.fname" required>
-                                </md-input-container>
-                                <md-input-container flex>
-                                    <label>Last Name</label>
-                                    <input type="text" ng-model="d.lname" required>
-                                </md-input-container>
-                            </div>
-
-                            <div layout layout-sm="column">
-                                <md-input-container flex>
-                                    <label>Email</label>
-                                    <input type="email" ng-model="d.email" required>
-                                </md-input-container>
-                                <md-input-container flex>
-                                    <label>Birthday</label>
-                                    <input type="date" ng-model="d.bday">
-                                </md-input-container>
-                            </div>
-
-                            <div layout layout-sm="column">
-                                <md-input-container flex>
-                                    <label>Work Phone</label>
-                                    <input type="tel" ng-model="d.wphone" required>
-                                </md-input-container>
-                                <md-input-container flex>
-                                    <label>Personal Phone</label>
-                                    <input type="tel" ng-model="d.pphone">
-                                </md-input-container>
-                            </div>
-
-
-
-
-
+                        <div layout layout-sm="column">
                             <md-input-container flex>
-                                <label>Username</label>
-                                <input type="text" input-change ng-change="inpChange(['alphanum', 'spaces', 'lower'])" ng-trim="false" ng-model="d.uname" required>
-                                <div class="ng-msg" ng-messages>Alphanumeric (a-z, 0-9), '-', '_', No spaces, No capitals</div>
+                                <label>First name</label>
+                                <input type="text" ng-model="d.fname" required>
+                            </md-input-container>
+                            <md-input-container flex>
+                                <label>Last Name</label>
+                                <input type="text" ng-model="d.lname" required>
+                            </md-input-container>
+                        </div>
+
+                        <div layout layout-sm="column">
+                            <md-input-container flex>
+                                <label>Email</label>
+                                <input type="email" ng-model="d.email" required>
+                            </md-input-container>
+                            <md-input-container flex>
+                                <label>Phone Number</label>
+                                <input type="tel" ng-model="d.phone">
+                            </md-input-container>
+                        </div>
+
+                        <div layout layout-sm="column">
+                            <md-input-container flex>
+                                <label>Password</label>
+                                <input type="password" ng-model="d.pass" required>
                             </md-input-container>
 
-                            <div layout layout-sm="column">
-                                <md-input-container flex>
-                                    <label>Password</label>
-                                    <input type="password" ng-model="d.pass" required>
-                                </md-input-container>
+                            <md-input-container flex>
+                                <label>Retype Password</label>
+                                <input type="password" ng-model="d.pass2" required>
+                            </md-input-container>
+                        </div>
 
-                                <md-input-container flex>
-                                    <label>Retype Password</label>
-                                    <input type="password" ng-model="d.pass2" required>
-                                </md-input-container>
-                            </div>
-
-
-
-                            <md-checkbox class="md-primary" ng-disabled="disableSubmit" ng-model="data.user.remember" aria-label="Keep me logged in on this device">
-                                Keep me logged in on this device
-                            </md-checkbox>
-
-                            <div layout="row">
-                                <md-button type="submit" ng-disabled="disableSubmit" class="md-raised md-primary" flex>register</md-button>
-                            </div>
-                        </fieldset>
+                        <div layout="row">
+                            <md-button type="submit" ng-disabled="disableSubmit" class="md-raised md-primary" flex>register</md-button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -86,4 +57,3 @@
     <div flex="0" flex-gt-lg="20">
     </div>
 </md-content>
-

@@ -5,35 +5,29 @@
     </div>
     <div flex="100" flex-gt-lg="60">
         <md-card class="md-padding md-hue-1 md-whiteframe-z2">
-        
+
             <div class="panel panel-default">
                 <div class="panel-body">
 
-                    <form name="formCaptcha" ng-submit="submitCaptcha()">
-                        <captcha></captcha>
-                    </form>
-
                     <form ng-submit="submit()">
-                        <fieldset ng-disabled="disableSubmit">
-                            <md-input-container flex>
-                                <label>Username</label>
-                                <input type="text" focus-me input-change ng-change="inpChange(['alphanum', 'spaces', 'lower'])" ng-trim="false" ng-model="d.uname" required>
-                                <div class="ng-msg" ng-messages>Alphanumeric (a-z, 0-9), '-', '_', No spaces, No capitals</div>
-                            </md-input-container>
-                            
-                            <md-input-container flex>
-                                <label>Password</label>
-                                <input type="password" ng-model="d.pass" required>
-                            </md-input-container>
+                        <md-input-container flex>
+                            <label>Username</label>
+                            <input type="text" ng-model="d.uname" required>
+                            <div class="ng-msg" ng-messages>Username is (first name)_(last name)(last 4 digits of phone number)</div>
+                        </md-input-container>
 
-                            <md-checkbox class="md-primary" ng-model="data.user.remember" ng-disabled="disableSubmit" aria-label="Keep me logged in on this device">
-                                Keep me logged in on this device
-                            </md-checkbox>
+                        <md-input-container flex>
+                            <label>Password</label>
+                            <input type="password" ng-model="d.pass" required>
+                        </md-input-container>
 
-                            <div layout="row">
-                                <md-button type="submit" ng-disabled="disableSubmit" class="md-raised md-primary" flex>login</md-button>
-                            </div>
-                        </fieldset>
+                        <md-checkbox class="md-primary" ng-model="data.user.remember" aria-label="Keep me logged in on this device">
+                            Keep me logged in on this device
+                        </md-checkbox>
+
+                        <div layout="row">
+                            <md-button type="submit" ng-disabled="disableSubmit" class="md-raised md-primary" flex>login</md-button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -42,4 +36,3 @@
     <div flex="0" flex-gt-lg="20">
     </div>
 </md-content>
-

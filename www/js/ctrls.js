@@ -19,16 +19,19 @@ angular.module( 'myApp' )
 	}
 
 
+
+
+
+
 	/*=====  define scope.d with chance vars  ======*/
 	$scope.d = {}
+
 	$scope._chance = function () {
 		// $scope.d.name = ""
 		// $scope.d.title = ""
 
 		$scope.d.fname = chance.first()
 		$scope.d.lname = chance.last()
-		$scope.d.wphone = chance.phone()
-		$scope.d.pphone = chance.phone()
 
 		$scope.d.address = chance.address()
 		$scope.d.city = chance.city()
@@ -54,8 +57,17 @@ angular.module( 'myApp' )
 		$scope.d.fireexting = chance.bool( {
 			likelihood: 50
 		} )
+
+		$scope.d.uname = $scope.d.fname + '_' + $scope.d.lname + $scope.d.phone.substring( $scope.d.phone.length - 4, $scope.d.phone.length )
 	}
-	$scope._chance()
+
+	// $scope._chance()
+
+	$scope.d.fname = "Rob"
+	$scope.d.lname = "Laverty"
+	$scope.d.phone = "(401) 864-3464"
+	$scope.d.email = chance.email()
+	$scope.d.uname = $scope.d.fname + '_' + $scope.d.lname + $scope.d.phone.substring( $scope.d.phone.length - 4, $scope.d.phone.length )
 
 
 
@@ -74,7 +86,6 @@ angular.module( 'myApp' )
 =            PUBLIC CONTROLLER            =
 =========================================*/
 .controller( 'PublicCtrl', function ( $scope, $state, $http ) {
-
 	// this dynamically loads the sidebar links from state defined links
 	$scope.links = $state.current.data.links // DO NOT REMOVE
 
@@ -83,11 +94,10 @@ angular.module( 'myApp' )
 	// $scope.d.lname = "Laverty"
 	// $scope.d.wphone = "6177894488"
 	// $scope.d.email = "roblav96@gmx.com"
-	$scope.d.uname = "roblav96"
+	// $scope.d.uname = "roblav96"
 	$scope.d.pass = "qwer1234"
 	$scope.d.pass2 = "qwer1234"
 	$scope.d.remember = false
-
 } )
 
 
@@ -104,34 +114,28 @@ angular.module( 'myApp' )
 
 	$scope.submit = function () {
 
-		$scope.d = _.pick( $scope.d, 'fname', 'lname', 'wphone', 'email', 'uname', 'pass', 'pass2', 'bday', 'pphone' )
+		$scope.d.uname = $scope.d.fname + '_' + $scope.d.lname + $scope.d.phone.substring( $scope.d.phone.length - 4, $scope.d.phone.length )
+		var data = _.pick( $scope.d, 'fname', 'lname', 'phone', 'email', 'pass', 'uname' )
 
-
-		if ( $scope.d.pass != $scope.d.pass2 ) {
+		if ( data.pass != $scope.d.pass2 ) {
 			$mdToast.show( $mdToast.simple().content( 'Passwords do not match!' ) )
 			return
 		}
 
-		$scope.d.uname = $scope.d.uname.replace( /[^a-zA-Z0-9_-]/, '' ).replace( / /g, '' ).toLowerCase()
-
-		$http.post( g_ip + "public/register", {
-			data: $scope.d
-		} ).success( function ( data ) {
-
-			if ( data == "true" ) {
-				$mdToast.show( $mdToast.simple().content( 'Registration success!' ) )
+		$http.post( g_ip + "public/register", data ).success( function ( res ) {
+			if ( res == "true" ) {
+				$mdToast.show( $mdToast.simple().content( 'Registration of ' + data.uname + ' success!' ) )
 				$scope.href( "public.login" )
 			}
-
-
 		} ).error( function ( err ) {
-			console.log( err );
+			console.log( err )
 			$mdToast.show( $mdToast.simple().content( err ) )
 		} )
 
 	}
 
 } )
+
 
 
 
@@ -147,18 +151,11 @@ angular.module( 'myApp' )
 
 	$scope.submit = function () {
 
-		$scope.d.uname = $scope.d.uname.replace( /[^a-zA-Z0-9_-]/, '' ).replace( / /g, '' ).toLowerCase()
+		var data = _.pick( $scope.d, 'pass', 'uname' )
 
-		$http.post( g_ip + "public/login", {
-			data: {
-				uname: $scope.d.uname,
-				pass: $scope.d.pass
-			}
-		} ).success( function ( data ) {
+		$http.post( g_ip + "public/login", data ).success( function ( data ) {
 
 			$mdToast.show( $mdToast.simple().content( 'Login success!' ) )
-
-			// console.log( JSON.stringify( $scope.d, true, 4 ) )
 
 			$scope.data.user.authed = true
 			$scope.data.user.uname = $scope.d.uname
@@ -170,7 +167,7 @@ angular.module( 'myApp' )
 				$scope.data.user.isNewb = data
 				$store.set( 'data.user.isNewb', data )
 
-				$scope.href( "newb.join" )
+				$scope.href( "user.newb" )
 			} else {
 				$scope.href( "user.dash" )
 			}
@@ -401,21 +398,41 @@ angular.module( 'myApp' )
 =============================================*/
 .controller( 'propertiesCtrl', function ( $scope, $http, $state ) {
 
-	$scope.myProps
+	var db = new PouchDB( 'http://admin:admin@localhost:15984/report_users' )
+	$scope.myProperties = []
+	$scope.myPropertiesCollection = []
 
 	/*=====  get list of properties by uname  ======*/
 	$http.get( g_ip + "user/properties" ).then( function ( data ) {
 		var data = data.data.rows
 
-		console.log( JSON.stringify( data, true, 4 ) )
+		console.log( data )
 
-		$scope.myProps = _.filter( data, function ( doc ) {
+		data = _.filter( data, function ( doc ) {
 			if ( doc.doc._id.substring( 0, 1 ) == "_" ) {
+				return false
+			} else {
+				return true
+			}
+		} )
+
+		console.log( $scope.myProperties )
+
+		data = _.filter( data, function ( doc ) {
+			if ( doc.doc.main == true ) {
+				return true
+			} else {
 				return false
 			}
 		} )
 
-		// console.log( $scope.myProps )
+		console.log( data )
+
+		$scope.myProperties = data
+
+
+
+
 	}, function ( err ) {
 		console.log( err )
 	} )
@@ -442,7 +459,7 @@ angular.module( 'myApp' )
 
 	/*=====  add new property  ======*/
 	$scope.submitProperty = function () {
-		var sendData = _.omit( $scope.d, [ 'fname', 'lname', 'wphone' ] )
+		var sendData = _.omit( $scope.d, [ 'fname', 'lname', 'wphone', 'pphone', 'bday' ] )
 
 		$http.post( g_ip + "user/add_property", sendData ).success( function ( data ) {
 			console.log( data )

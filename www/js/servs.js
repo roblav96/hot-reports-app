@@ -14,10 +14,6 @@ angular.module( 'myApp' )
 			config.headers[ 'x-uname' ] = $rootScope.data.user.uname
 		}
 
-		if ( $rootScope.data.user.ucompany ) {
-			config.headers[ 'x-ucompany' ] = $rootScope.data.user.ucompany
-		}
-
 		return config
 	}
 

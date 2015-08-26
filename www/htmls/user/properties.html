@@ -2,7 +2,7 @@
 
 <md-content layout="column">
 
-    <table st-table="myCompanies" st-safe-src="rowCollection" class="table table-striped">
+    <table st-table="myProperties" st-safe-src="myPropertiesCollection" class="table table-striped">
         <thead>
             <tr>
                 <th colspan="6">
@@ -20,18 +20,16 @@
             <tr>
                 <th>Company</th>
                 <th>Property</th>
-                <th>Property Manager</th>
+                <th>Administrator</th>
                 <th>Address</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="row in myCompanies" ng-click="join(row.doc.type, row.doc._id)">
-                <td join-item-icon typ="row.doc.type" class="pad0"></td>
+            <tr ng-repeat="row in myProperties" ng-click="join(row.doc.type, row.doc._id)">
                 <td>{{row.doc.name}}</td>
+                <td>{{row.doc.property}}</td>
+                <td>{{row.doc.users}}</td>
                 <td>{{row.doc.address}}</td>
-                <td>{{row.doc.city}}</td>
-                <td>{{row.doc.state}}</td>
-                <td>{{row.doc.zip}}</td>
             </tr>
         </tbody>
     </table>
