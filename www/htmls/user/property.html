@@ -1,41 +1,103 @@
 <!--  -->
 
-<md-content layout="column" layout-margin>
+<md-content layout="column">
 
-    <md-content layout="row" layout-margin>
-        <h4 layout-margin>
-            <small>Property</small> {{p.name}}
-        </h4>
-        <h4 layout-margin>
-            <small>Address</small> {{p.address}}, {{p.city}}, {{p.state}}, {{p.zip}}
-        </h4>
-        <h4 layout-margin>
-            <small>Phone</small> {{p.phone}}
-        </h4>
-        <h4 layout-margin>
-            <small>Email</small> {{p.email}}
-        </h4>
-
-        <md-button class="pad-lr md-primary md-raised" ng-click="hrefAddSite('p._id')">
-            <div layout="row" layout-align="center center">
-                <i class="material-icons btn-icon">add</i>
-                <span>Add Site to {{p.name}}</span>
+    <div class="panel panel-primary" flex>
+        <div class="panel-heading">
+            <h2 class="bold marg0">{{p.name}}</h2>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-5">
+                    <dl>
+                        <dt>Address</dt>
+                        <dd>{{p.address}} {{p.city}}, {{p.state}} {{p.zip}}</dd>
+                    </dl>
+                </div>
+                <div class="col-md-3">
+                    <dl>
+                        <dt>Email</dt>
+                        <dd>{{p.email}}</dd>
+                    </dl>
+                </div>
+                <div class="col-md-2">
+                    <dl>
+                        <dt>Phone</dt>
+                        <dd>{{p.phone}}</dd>
+                    </dl>
+                </div>
+                <div class="col-md-2">
+                    <dl>
+                        <dt>Fax</dt>
+                        <dd>{{p.fax}}</dd>
+                    </dl>
+                </div>
             </div>
-        </md-button>
-    </md-content>
 
-    <table st-table="propSites" class="table table-striped">
-        <thead>
-            <tr>
-                <th>Site Address</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="row in propSites">
-                <td>{{row.address}}</td>
-            </tr>
-        </tbody>
-    </table>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="bold marg0">Staff</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <table st-table="propStaff" st-safe-src="propStaffCollection" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th colspan="4">
+                                        <input st-search class="form-control" placeholder="Search Anything..." type="text" />
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Title</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="row in propStaff">
+                                    
+                                    <td>{{row.doc.address}}</td>
+                                    <td>{{row.doc.city}}</td>
+                                    <td>{{row.doc.state}}</td>
+                                    <td>{{row.doc.zip}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="bold marg0">Sites</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <table st-table="propSites" st-safe-src="propSitesCollection" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th colspan="1">
+                                        <input st-search class="form-control" placeholder="Search Anything..." type="text" />
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>Address</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="row in propSites">
+                                    <td>{{row.address}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
 
 </md-content>
 

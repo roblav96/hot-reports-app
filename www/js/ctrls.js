@@ -370,10 +370,10 @@ angular.module( 'myApp' )
 	// $scope.d = {}
 	// $scope.d.name = chance.word() + " " + chance.word() + " " + chance.word()
 	// $scope.d.title = chance.word() + " " + chance.word()
-	$scope.d.name = "10 Milk"
+	$scope.d.name = "Wellington Place"
 	$scope.d.title = "Property Manager"
 
-	$scope.d.address = "10 Milk St"
+	$scope.d.address = "34 Brainard Ave"
 	$scope.d.city = "Boston"
 	$scope.d.state = "MA"
 		// $scope.d.zip = "02532"
@@ -387,25 +387,6 @@ angular.module( 'myApp' )
 	// $scope.d.emergexits = false
 	// $scope.d.hoodsys = false
 	// $scope.d.fireexting = false
-
-
-
-	/*=====  add new property  ======*/
-	$scope.submitProperty = function () {
-
-		$http.post( g_ip + "user/new_property", {
-			data: $scope.d
-		} ).success( function ( data ) {
-			console.log( data )
-			$state.go( 'user.property', {
-				propertyID: data
-			} )
-		} ).error( function ( err ) {
-			console.log( err );
-			$mdToast.show( $mdToast.simple().content( err ) )
-		} )
-
-	}
 
 } )
 
@@ -454,6 +435,31 @@ angular.module( 'myApp' )
 
 
 
+/*===================================================
+=            ADD NEW PROPERTY CONTROLLER            =
+===================================================*/
+.controller( 'addPropertyCtrl', function ( $scope, $state, $http, $mdToast ) {
+
+	/*=====  add new property  ======*/
+	$scope.submitProperty = function () {
+		var sendData = _.omit( $scope.d, [ 'fname', 'lname', 'wphone' ] )
+
+		$http.post( g_ip + "user/add_property", sendData ).success( function ( data ) {
+			console.log( data )
+			$state.go( 'user.property', {
+				propertyID: data
+			} )
+		} ).error( function ( err ) {
+			console.log( err );
+			$mdToast.show( $mdToast.simple().content( err ) )
+		} )
+
+	}
+
+} )
+
+
+
 
 
 /*===========================================
@@ -465,26 +471,61 @@ angular.module( 'myApp' )
 	}
 
 	$scope.p = {}
-	$scope.propSites
+	$scope.propStaff = []
+	$scope.propStaffCollection = []
+	$scope.propSites = []
+	$scope.propSitesCollection = []
 
 
 	$http.get( g_ip + "user/property/" + $stateParams.propertyID ).then( function ( data ) {
+		data = data.data.docs
+		console.log( data )
 
-		console.log( JSON.stringify( data.data, true, 4 ) )
-		$scope.p = data.data
-
-
-
+		$scope.propSitesCollection = data
+		$scope.p = data[ 0 ]
 	}, function ( err ) {
-
+		console.log( err )
 	} )
 
-	$scope.hrefAddSite = function ( propertyID ) {
-		console.log( propertyID );
-		$state.go( 'user.add_site', {
-			propertyID: propertyID
-		} )
-	}
+
+
+	/*=====  get all companies  ======*/
+	// $http.get( g_ip + "newb/invite" ).then( function ( data ) {
+	// 	var data = data.data.rows
+
+	// 	data = _.filter( data, function ( doc ) {
+	// 		if ( doc.doc._id.substring( 0, 1 ) == "_" ) {
+	// 			return false
+	// 		} else {
+	// 			return true
+	// 		}
+	// 	} )
+
+	// 	for ( var i = 0; i < data.length; i++ ) {
+	// 		data[ i ].doc = _.pick( data[ i ].doc, 'type', 'name', 'address', 'city', 'state', 'zip', '_id' )
+	// 	}
+
+	// 	$scope.rowCollection = data
+
+	// 	console.log( $scope.rowCollection )
+	// }, function ( err ) {
+	// 	console.log( err )
+	// } )
+
+
+
+
+
+
+
+
+
+	// $scope.hrefAddSite = function ( propertyID ) {
+	// 	console.log( propertyID );
+	// 	$state.go( 'user.add_site', {
+	// 		propertyID: propertyID
+	// 	} )
+	// }
 
 
 	// $http.get( g_ip + "user/property/" + $stateParams.propertyID ).then( function ( data ) {
@@ -514,28 +555,6 @@ angular.module( 'myApp' )
 
 
 } )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

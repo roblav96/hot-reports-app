@@ -210,12 +210,13 @@ angular.module( 'myApp', [
 	} )
 
 
-	.state( 'user.new_property', {
-		url: '/new_property',
-		templateUrl: 'htmls/user/new_property.html',
+	.state( 'user.add_property', {
+		url: '/add_property',
+		templateUrl: 'htmls/user/add_property.html',
 		data: {
-			stateToolName: "Enroll New Property"
-		}
+			stateToolName: "Add Property"
+		},
+		controller: 'addPropertyCtrl'
 	} )
 
 	.state( 'user.property', {
