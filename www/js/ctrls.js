@@ -58,16 +58,17 @@ angular.module( 'myApp' )
 			likelihood: 50
 		} )
 
-		$scope.d.uname = $scope.d.fname + '_' + $scope.d.lname + $scope.d.phone.substring( $scope.d.phone.length - 4, $scope.d.phone.length )
+		$scope.d.uname = $scope.d.fname + '_' + $scope.d.mname + '_' + $scope.d.lname + $scope.d.phone.substring( $scope.d.phone.length - 4, $scope.d.phone.length )
 	}
 
 	// $scope._chance()
 
-	$scope.d.fname = "Rob"
+	$scope.d.fname = "Robert"
+	$scope.d.mname = "G"
 	$scope.d.lname = "Laverty"
 	$scope.d.phone = "(401) 864-3464"
 	$scope.d.email = chance.email()
-	$scope.d.uname = $scope.d.fname + '_' + $scope.d.lname + $scope.d.phone.substring( $scope.d.phone.length - 4, $scope.d.phone.length )
+	$scope.d.uname = $scope.d.fname + '_' + $scope.d.mname + '_' + $scope.d.lname + $scope.d.phone.substring( $scope.d.phone.length - 4, $scope.d.phone.length )
 
 
 
@@ -114,8 +115,8 @@ angular.module( 'myApp' )
 
 	$scope.submit = function () {
 
-		$scope.d.uname = $scope.d.fname + '_' + $scope.d.lname + $scope.d.phone.substring( $scope.d.phone.length - 4, $scope.d.phone.length )
-		var data = _.pick( $scope.d, 'fname', 'lname', 'phone', 'email', 'pass', 'uname' )
+		$scope.d.uname = $scope.d.fname + '_' + $scope.d.mname + '_' + $scope.d.lname + $scope.d.phone.substring( $scope.d.phone.length - 4, $scope.d.phone.length )
+		var data = _.pick( $scope.d, 'fname', 'mname', 'lname', 'phone', 'email', 'pass', 'uname' )
 
 		if ( data.pass != $scope.d.pass2 ) {
 			$mdToast.show( $mdToast.simple().content( 'Passwords do not match!' ) )
@@ -153,7 +154,7 @@ angular.module( 'myApp' )
 
 		var data = _.pick( $scope.d, 'pass', 'uname' )
 
-		$http.post( g_ip + "public/login", data ).success( function ( data ) {
+		$http.post( g_ip + "public/login", data ).success( function ( res ) {
 
 			$mdToast.show( $mdToast.simple().content( 'Login success!' ) )
 
@@ -163,19 +164,21 @@ angular.module( 'myApp' )
 			$store.set( 'data.user.xid', $scope.data.user.xid )
 			$store.set( 'data.user.uname', $scope.d.uname )
 
-			if ( data == true ) {
-				$scope.data.user.isNewb = data
-				$store.set( 'data.user.isNewb', data )
-
+			if ( res == true ) {
+				$scope.data.user.isNewb = res
+				$store.set( 'data.user.isNewb', res )
 				$scope.href( "user.newb" )
 			} else {
+				if ( res == 'vend' ) {
+					$scope.data.user.isVendor = true
+					$store.set( 'data.user.isVendor', true )
+				}
 				$scope.href( "user.dash" )
 			}
 
-
-		} ).error( function ( data ) {
-			$mdToast.show( $mdToast.simple().content( data ) )
-			log( data )
+		} ).error( function ( err ) {
+			console.error( err )
+			$mdToast.show( $mdToast.simple().content( err ) )
 		} )
 	}
 
@@ -359,6 +362,29 @@ angular.module( 'myApp' )
 .controller( 'UserCtrl', function ( $scope, $state, $http, $mdToast ) {
 	// this dynamically loads the sidebar links from state defined links
 	$scope.links = $state.current.data.links // DO NOT REMOVE
+	console.log( $scope.links )
+
+	if ( $scope.data.user.isNewb == true ) {
+
+		console.log(_.includes($scope.links, "user.dash" ))
+
+		/**
+			TODO:
+			- CHECK IF LINK IS ALREADY IN ARRAY OF LINKS AND ADD
+		 */
+
+		// console.log($scope.links[ 0 ].state)
+		// if ( $scope.links[ 0 ].state != "user.newb" ) {
+		// 	$scope.links.unshift( {
+		// 		name: "Introduction",
+		// 		state: "user.newb",
+		// 		icon: "info_outline"
+		// 	} )
+		// }
+
+	}
+
+
 
 	if ( !$scope.data.user.authed ) {
 		$scope.href( "public.login" )
@@ -459,7 +485,7 @@ angular.module( 'myApp' )
 
 	/*=====  add new property  ======*/
 	$scope.submitProperty = function () {
-		var sendData = _.omit( $scope.d, [ 'fname', 'lname', 'wphone', 'pphone', 'bday' ] )
+		var sendData = _.omit( $scope.d, [ 'fname', 'mname', 'lname', 'wphone', 'pphone', 'bday' ] )
 
 		$http.post( g_ip + "user/add_property", sendData ).success( function ( data ) {
 			console.log( data )

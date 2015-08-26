@@ -26,6 +26,7 @@ angular.module( 'myApp', [
 	$rootScope.data.user.authed = $store.get( 'data.user.authed' ) || null
 	$rootScope.data.user.uname = $store.get( 'data.user.uname' ) || null
 	$rootScope.data.user.isNewb = $store.get( 'data.user.isNewb' ) || null
+	$rootScope.data.user.isVendor = $store.get( 'data.user.isVendor' ) || null
 
 } )
 
@@ -174,9 +175,17 @@ angular.module( 'myApp', [
 
 	.state( 'user.acct', {
 		url: '/acct',
-		templateUrl: 'htmls/acct.html',
+		templateUrl: 'htmls/user/acct.html',
 		data: {
 			stateToolName: "My Account"
+		}
+	} )
+
+	.state( 'user.newb', {
+		url: '/newb',
+		templateUrl: 'htmls/user/newb.html',
+		data: {
+			stateToolName: "Introduction"
 		}
 	} )
 

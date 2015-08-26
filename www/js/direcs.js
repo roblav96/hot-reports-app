@@ -79,6 +79,7 @@ angular.module( 'myApp' )
 				$scope.data.user.authed = null
 				$scope.data.user.uname = null
 				$scope.data.user.isNewb = null
+				$scope.data.user.isVendor = null
 				localStorage.clear()
 
 				$scope.href( 'public.login' )
