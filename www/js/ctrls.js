@@ -167,7 +167,7 @@ angular.module( 'myApp' )
 			if ( res == true ) {
 				$scope.data.user.isNewb = res
 				$store.set( 'data.user.isNewb', res )
-				$scope.href( "user.newb" )
+				$scope.href( "newb.intro" )
 			} else {
 				if ( res == 'vend' ) {
 					$scope.data.user.isVendor = true
@@ -305,8 +305,9 @@ angular.module( 'myApp' )
 			sendit = _.omit( sendit, [ 'firealarm', 'sprinkler', 'firepump', 'emergexits', 'hoodsys', 'fireexting' ] )
 		}
 
-		$http.post( g_ip + "newb/enroll", sendit ).then( function ( data ) {
-			var data = data.data
+		$http.post( g_ip + "newb/enroll", sendit ).success( function ( res ) {
+
+			var data = res
 
 			if ( data == true ) {
 				$scope.data.user.isNewb = null
@@ -316,8 +317,9 @@ angular.module( 'myApp' )
 				$scope.href( "user.dash" )
 			}
 			console.log( data )
-		}, function ( err ) {
-			console.log( err )
+
+		} ).error( function ( err ) {
+			console.error( err )
 		} )
 
 		// $http.post( g_ip + "newb/enroll", sendit ).success( function ( data ) {
@@ -362,29 +364,6 @@ angular.module( 'myApp' )
 .controller( 'UserCtrl', function ( $scope, $state, $http, $mdToast ) {
 	// this dynamically loads the sidebar links from state defined links
 	$scope.links = $state.current.data.links // DO NOT REMOVE
-	console.log( $scope.links )
-
-	if ( $scope.data.user.isNewb == true ) {
-
-		console.log(_.includes($scope.links, "user.dash" ))
-
-		/**
-			TODO:
-			- CHECK IF LINK IS ALREADY IN ARRAY OF LINKS AND ADD
-		 */
-
-		// console.log($scope.links[ 0 ].state)
-		// if ( $scope.links[ 0 ].state != "user.newb" ) {
-		// 	$scope.links.unshift( {
-		// 		name: "Introduction",
-		// 		state: "user.newb",
-		// 		icon: "info_outline"
-		// 	} )
-		// }
-
-	}
-
-
 
 	if ( !$scope.data.user.authed ) {
 		$scope.href( "public.login" )
@@ -423,17 +402,19 @@ angular.module( 'myApp' )
 =============================================*/
 .controller( 'propertiesCtrl', function ( $scope, $http, $state ) {
 
-	var db = new PouchDB( 'http://admin:admin@localhost:15984/report_users' )
+	var db = new PouchDB( 'http://admin:admin@127.0.0.1:15984/report_sites' )
 	$scope.myProperties = []
 	$scope.myPropertiesCollection = []
 
-	/*=====  get list of properties by uname  ======*/
-	$http.get( g_ip + "user/properties" ).then( function ( data ) {
-		var data = data.data.rows
 
-		console.log( data )
+	db.allDocs( {
+		include_docs: true
+	}, function ( err, res ) {
+		if ( err ) {
+			return console.log( err );
+		}
 
-		data = _.filter( data, function ( doc ) {
+		res = _.filter( res.rows, function ( doc ) {
 			if ( doc.doc._id.substring( 0, 1 ) == "_" ) {
 				return false
 			} else {
@@ -441,9 +422,7 @@ angular.module( 'myApp' )
 			}
 		} )
 
-		console.log( $scope.myProperties )
-
-		data = _.filter( data, function ( doc ) {
+		res = _.filter( res, function ( doc ) {
 			if ( doc.doc.main == true ) {
 				return true
 			} else {
@@ -451,16 +430,11 @@ angular.module( 'myApp' )
 			}
 		} )
 
-		console.log( data )
+		console.log( res )
 
-		$scope.myProperties = data
+		$scope.myProperties = res
 
-
-
-
-	}, function ( err ) {
-		console.log( err )
-	} )
+	} );
 
 
 

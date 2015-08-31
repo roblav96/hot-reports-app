@@ -94,6 +94,10 @@ angular.module( 'myApp', [
 		templateUrl: 'htmls/index.html',
 		data: {
 			links: [ {
+				name: "Introduction",
+				state: "newb.intro",
+				icon: "info_outlined"
+			}, {
 				name: "Join Company",
 				state: "newb.join",
 				icon: "input"
@@ -110,6 +114,14 @@ angular.module( 'myApp', [
 		templateUrl: 'htmls/acct.html',
 		data: {
 			stateToolName: "My Account"
+		}
+	} )
+
+	.state( 'newb.intro', {
+		url: '/intro',
+		templateUrl: 'htmls/newb/intro.html',
+		data: {
+			stateToolName: "Introduction"
 		}
 	} )
 
@@ -175,7 +187,7 @@ angular.module( 'myApp', [
 
 	.state( 'user.acct', {
 		url: '/acct',
-		templateUrl: 'htmls/user/acct.html',
+		templateUrl: 'htmls/acct.html',
 		data: {
 			stateToolName: "My Account"
 		}
@@ -230,6 +242,7 @@ angular.module( 'myApp', [
 			stateToolName: "Users"
 		}
 	} )
+
 
 
 	.state( 'user.add_property', {

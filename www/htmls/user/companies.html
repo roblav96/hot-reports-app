@@ -1,0 +1,38 @@
+<!--  -->
+
+<md-content layout="column">
+
+    <h4 ng-show="data.user.isNewb" layout-margin>Select the company you would like to join:</h4>
+
+    <table st-table="myCompanies" st-safe-src="rowCollection" class="table table-striped">
+        <thead>
+            <tr>
+                <th colspan="6">
+                    <input st-search class="form-control" placeholder="Search Anything..." type="text" />
+                </th>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Street</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in myCompanies" ng-click="join(row.doc.type, row.doc._id)">
+                <td join-item-icon typ="row.doc.type" class="pad0"></td>
+                <td>{{row.doc.name}}</td>
+                <td>{{row.doc.address}}</td>
+                <td>{{row.doc.city}}</td>
+                <td>{{row.doc.state}}</td>
+                <td>{{row.doc.zip}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+</md-content>
+
