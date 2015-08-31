@@ -10,7 +10,7 @@
                         <input st-search class="form-control" placeholder="Search Anything..." type="text">
                         <md-button style="margin: 0 10px 0 10px;" ng-click="href('user.add_property')" class="md-primary">
                             <div layout="row" layout-align="center center">
-                                <i style="margin-left: 20px;"class="material-icons btn-icon">add</i>
+                                <i style="margin-left: 20px;" class="material-icons btn-icon">add</i>
                                 <span style="margin-right: 20px;">Add Property</span>
                             </div>
                         </md-button>
@@ -25,14 +25,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="row in myProperties" ng-click="join(row.doc.type, row.doc._id)">
+            <tr ng-repeat="row in myProperties" ng-click="hrefProperty( row.doc.property )">
+                <td>{{row.doc.company}}</td>
                 <td>{{row.doc.name}}</td>
-                <td>{{row.doc.property}}</td>
-                <td>{{row.doc.users}}</td>
-                <td>{{row.doc.address}}</td>
+                <td>{{row.doc.admins[0]}}</td>
+                <td>{{row.doc.address}}, {{row.doc.city}} {{row.doc.state}}</td>
             </tr>
         </tbody>
     </table>
 
 </md-content>
-

@@ -58,7 +58,9 @@ angular.module( 'myApp' )
 			likelihood: 50
 		} )
 
-		$scope.d.uname = $scope.d.fname + '_' + $scope.d.mname + '_' + $scope.d.lname + $scope.d.phone.substring( $scope.d.phone.length - 4, $scope.d.phone.length )
+		$scope.d.uname = formatUname( $scope.d.fname, $scope.d.mname, $scope.d.lname, $scope.d.phone )
+
+		// $scope.d.uname = $scope.d.fname + '_' + $scope.d.mname + '_' + $scope.d.lname + '_' + $scope.d.phone.substring( $scope.d.phone.length - 4, $scope.d.phone.length )
 	}
 
 	// $scope._chance()
@@ -67,9 +69,10 @@ angular.module( 'myApp' )
 	$scope.d.mname = "G"
 	$scope.d.lname = "Laverty"
 	$scope.d.phone = "(401) 864-3464"
-	$scope.d.email = chance.email()
-	$scope.d.uname = $scope.d.fname + '_' + $scope.d.mname + '_' + $scope.d.lname + $scope.d.phone.substring( $scope.d.phone.length - 4, $scope.d.phone.length )
+	$scope.d.email = "roblav96@gmx.com"
+	$scope.d.uname = formatUname( $scope.d.fname, $scope.d.mname, $scope.d.lname, $scope.d.phone )
 
+	// $scope.d.uname = $scope.d.fname + '_' + $scope.d.mname + '_' + $scope.d.lname + '_' + $scope.d.phone.substring( $scope.d.phone.length - 4, $scope.d.phone.length )
 
 
 	$scope.clearDev = function () {
@@ -115,7 +118,8 @@ angular.module( 'myApp' )
 
 	$scope.submit = function () {
 
-		$scope.d.uname = $scope.d.fname + '_' + $scope.d.mname + '_' + $scope.d.lname + $scope.d.phone.substring( $scope.d.phone.length - 4, $scope.d.phone.length )
+		// $scope.d.uname = $scope.d.fname + '_' + $scope.d.mname + '_' + $scope.d.lname + $scope.d.phone.substring( $scope.d.phone.length - 4, $scope.d.phone.length )
+		$scope.d.uname = formatUname( $scope.d.fname, $scope.d.mname, $scope.d.lname, $scope.d.phone )
 		var data = _.pick( $scope.d, 'fname', 'mname', 'lname', 'phone', 'email', 'pass', 'uname' )
 
 		if ( data.pass != $scope.d.pass2 ) {
@@ -163,6 +167,8 @@ angular.module( 'myApp' )
 			$store.set( 'data.user.authed', true )
 			$store.set( 'data.user.xid', $scope.data.user.xid )
 			$store.set( 'data.user.uname', $scope.d.uname )
+
+			console.log( res )
 
 			if ( res == true ) {
 				$scope.data.user.isNewb = res
@@ -406,13 +412,7 @@ angular.module( 'myApp' )
 	$scope.myProperties = []
 	$scope.myPropertiesCollection = []
 
-
-	db.allDocs( {
-		include_docs: true
-	}, function ( err, res ) {
-		if ( err ) {
-			return console.log( err );
-		}
+	$http.get( g_ip + '/user/properties' ).success( function ( res ) {
 
 		res = _.filter( res.rows, function ( doc ) {
 			if ( doc.doc._id.substring( 0, 1 ) == "_" ) {
@@ -434,7 +434,12 @@ angular.module( 'myApp' )
 
 		$scope.myProperties = res
 
-	} );
+	} ).error( function ( err ) {
+		console.error( err )
+	} )
+
+
+	console.log( $scope.data )
 
 
 

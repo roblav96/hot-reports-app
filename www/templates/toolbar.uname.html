@@ -4,7 +4,9 @@
 
     <md-button class="lowercase" ng-click="$mdOpenMenu($event)">
         <div layout="row" layout-align="center center">
-            <i class="material-icons btn-icon">person</i>
+            <i ng-show="data.user.isNewb" class="material-icons btn-icon">person</i>
+            <i ng-show="data.user.isVendor" class="material-icons btn-icon">build</i>
+            <i ng-hide="data.user.isVendor" class="material-icons btn-icon">location_city</i>
             <span>{{data.user.uname}}</span>
         </div>
     </md-button>
