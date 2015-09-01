@@ -78,15 +78,15 @@ angular.module( 'myApp' )
 			$scope.logout = function () {
 				$scope.data.user.authed = null
 				$scope.data.user.uname = null
-				$scope.data.user.isNewb = null
-				$scope.data.user.isVendor = null
+				$scope.data.user.newb = null
+				$scope.data.user.vendor = null
 				localStorage.clear()
 
 				$scope.href( 'public.login' )
 			}
 
 			$scope.hreftoacct = function () {
-				if ( $scope.data.user.isNewb ) {
+				if ( $scope.data.user.newb ) {
 					$scope.href( "newb.acct" )
 				} else {
 					$scope.href( "user.acct" )

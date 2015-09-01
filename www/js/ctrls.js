@@ -33,7 +33,7 @@ angular.module( 'myApp' )
 		$scope.d.fname = chance.first()
 		$scope.d.lname = chance.last()
 
-		$scope.d.address = chance.address()
+		$scope.d.street = chance.address()
 		$scope.d.city = chance.city()
 		$scope.d.state = chance.state()
 		$scope.d.zip = chance.zip()
@@ -59,8 +59,6 @@ angular.module( 'myApp' )
 		} )
 
 		$scope.d.uname = formatUname( $scope.d.fname, $scope.d.mname, $scope.d.lname, $scope.d.phone )
-
-		// $scope.d.uname = $scope.d.fname + '_' + $scope.d.mname + '_' + $scope.d.lname + '_' + $scope.d.phone.substring( $scope.d.phone.length - 4, $scope.d.phone.length )
 	}
 
 	// $scope._chance()
@@ -71,8 +69,6 @@ angular.module( 'myApp' )
 	$scope.d.phone = "(401) 864-3464"
 	$scope.d.email = "roblav96@gmx.com"
 	$scope.d.uname = formatUname( $scope.d.fname, $scope.d.mname, $scope.d.lname, $scope.d.phone )
-
-	// $scope.d.uname = $scope.d.fname + '_' + $scope.d.mname + '_' + $scope.d.lname + '_' + $scope.d.phone.substring( $scope.d.phone.length - 4, $scope.d.phone.length )
 
 
 	$scope.clearDev = function () {
@@ -171,13 +167,13 @@ angular.module( 'myApp' )
 			console.log( res )
 
 			if ( res == true ) {
-				$scope.data.user.isNewb = res
-				$store.set( 'data.user.isNewb', res )
+				$scope.data.user.newb = res
+				$store.set( 'data.user.newb', res )
 				$scope.href( "newb.intro" )
 			} else {
 				if ( res == 'vend' ) {
-					$scope.data.user.isVendor = true
-					$store.set( 'data.user.isVendor', true )
+					$scope.data.user.vendor = true
+					$store.set( 'data.user.vendor', true )
 				}
 				$scope.href( "user.dash" )
 			}
@@ -252,7 +248,7 @@ angular.module( 'myApp' )
 		} )
 
 		for ( var i = 0; i < data.length; i++ ) {
-			data[ i ].doc = _.pick( data[ i ].doc, 'type', 'name', 'address', 'city', 'state', 'zip', '_id' )
+			data[ i ].doc = _.pick( data[ i ].doc, 'type', 'name', 'street', 'city', 'state', 'zip', '_id' )
 		}
 
 		$scope.rowCollection = data
@@ -304,8 +300,13 @@ angular.module( 'myApp' )
 		$scope.selected = false
 	}
 
+
+
+
+
+
 	$scope.submit = function () {
-		var sendit = _.pick( $scope.d, 'name', 'type', 'address', 'city', 'state', 'zip', 'phone', 'fax', 'email', 'firealarm', 'sprinkler', 'firepump', 'emergexits', 'hoodsys', 'fireexting' )
+		var sendit = _.pick( $scope.d, 'name', 'type', 'street', 'city', 'state', 'zip', 'phone', 'fax', 'email', 'firealarm', 'sprinkler', 'firepump', 'emergexits', 'hoodsys', 'fireexting' )
 
 		if ( $scope.d.type == 'prop' ) {
 			sendit = _.omit( sendit, [ 'firealarm', 'sprinkler', 'firepump', 'emergexits', 'hoodsys', 'fireexting' ] )
@@ -316,8 +317,8 @@ angular.module( 'myApp' )
 			var data = res
 
 			if ( data == true ) {
-				$scope.data.user.isNewb = null
-				$store.remove( 'data.user.isNewb' )
+				$scope.data.user.newb = null
+				$store.remove( 'data.user.newb' )
 				$mdToast.show( $mdToast.simple().content( 'Enrollment of ' + $scope.d.name + ' completed!' ) )
 
 				$scope.href( "user.dash" )
@@ -335,8 +336,8 @@ angular.module( 'myApp' )
 		// 	if ( data == "true" ) {
 		// 		$mdToast.show( $mdToast.simple().content( 'Enrollment success!' ) )
 
-		// 		$scope.data.user.isNewb = null
-		// 		$store.remove( 'data.user.isNewb' )
+		// 		$scope.data.user.newb = null
+		// 		$store.remove( 'data.user.newb' )
 
 		// 		$scope.data.user.ucompany = $scope.d.name
 		// 		$store.set( 'data.user.ucompany', $scope.d.name )
@@ -381,7 +382,7 @@ angular.module( 'myApp' )
 	$scope.d.name = "Wellington Place"
 	$scope.d.title = "Property Manager"
 
-	$scope.d.address = "34 Brainard Ave"
+	$scope.d.street = "34 Brainard Ave"
 	$scope.d.city = "Boston"
 	$scope.d.state = "MA"
 		// $scope.d.zip = "02532"
